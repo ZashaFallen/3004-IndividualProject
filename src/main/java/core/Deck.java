@@ -16,6 +16,8 @@ public class Deck {
 				cards.add(new Card(s, r, ranks.get(r)));
 			}
 		}
+		
+		Collections.shuffle(cards);
 	}	
 	
 	
