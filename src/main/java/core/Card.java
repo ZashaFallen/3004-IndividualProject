@@ -1,39 +1,18 @@
 package core;
 
 public class Card {	
-	enum Suit {
-		Clubs,
-		Diamonds,
-		Hearts,
-		Spades
-	}
-	enum Rank {
-		Ace,
-		Two,
-		Three,
-		Four,
-		Five,
-		Six,
-		Seven,
-		Eight,
-		Nine,
-		Ten,
-		Jack,
-		Queen,
-		King
-	}
-	
-	private Rank rank;
-	private Suit suit;
+	private String rank;
+	private String suit;
 	private int value;
 	
-	public Card (Suit suit, Rank rank) {
+	public Card (String suit, String rank, int value) {
 		this.suit = suit;
 		this.rank = rank;
+		this.value = value;
 	}
 	
 	
 	public String toString() {
-		
+		return suit + rank;
 	}
 }

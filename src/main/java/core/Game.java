@@ -17,8 +17,10 @@ public class Game {
 			setGameState(s.nextLine());
 		}
 		
+		if (gameState.equals("console") ) {
+			Deck deck = new Deck();
+		}
 		
-		System.out.print("test");
 		s.close();
 	}
 
