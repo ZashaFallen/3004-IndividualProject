@@ -7,22 +7,32 @@ public class Game {
 	
 	public static String gameState = "";
 	
-	/*enum validInputs {
-		Q,
-		C,
-		F,
-		H,
-		S
-	}*/
 	private static final String[] validInputs =  {"Q", "C", "F", "H", "S"};
 	
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
 		
+		while (gameState.equals("")) {
+			System.out.print("Would you like to use (c)onsole or (f)file input?: ");
+			setGameState(s.nextLine());
+		}
+		
+		
 		System.out.print("test");
 		s.close();
 	}
 
+	
+	
+	/**************
+	 * Purpose: Sets the initial game state. 'Console' means that
+	 * 				user input is taken from the console. 'File'
+	 * 				means that user input and all of the drawn cards
+	 * 				are taken from a file.
+	 * Input:   Raw user input.
+	 * Output:  No return value. Modifies 'Game.gameState'.
+	 * Created:	12/09/2018
+	 **************/
 	public static void setGameState(Object rawInput) {
 		String state = "";
 		String input = validateInput(rawInput);
@@ -38,11 +48,23 @@ public class Game {
 		gameState = state;
 	}
 	
+	
+	/**************
+	 * Purpose: Used to validate user input. Receives raw user input
+	 * 				(from the console) and checks it against a list of 
+	 * 				'valid' inputs.
+	 * Input:   Raw user input.
+	 * Output:  'null' if the input does not match an entry in the 
+	 * 				list of valid inputs.
+	 * 			If the input does match a valid input, then it is 
+	 * 				returned as a string (upper case).
+	 * Created:	12/09/2018
+	 **************/
 	public static String validateInput(Object rawInput) {
 		String input = null;
 		
 		rawInput = rawInput.toString().toUpperCase();
-		for (String s: validInputs) {
+		for (String s : validInputs) {
 			if (Objects.equals(rawInput, s)) input = s;
 		}
 		 
