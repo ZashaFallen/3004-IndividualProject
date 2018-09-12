@@ -8,25 +8,25 @@ public class GameClassTests  extends TestCase {
 	
 	@Test
 	public void testValidateInputValidString() {
-		assertEquals("C", Game.ValidateInput("C"));
-		assertEquals("C", Game.ValidateInput("c"));
+		assertEquals("C", Game.validateInput("C"));
+		assertEquals("C", Game.validateInput("c"));
 		
-		assertEquals("F", Game.ValidateInput("F"));
-		assertEquals("F", Game.ValidateInput("f"));
+		assertEquals("F", Game.validateInput("F"));
+		assertEquals("F", Game.validateInput("f"));
 		
-		assertEquals("H", Game.ValidateInput("H"));
-		assertEquals("H", Game.ValidateInput("h"));
+		assertEquals("H", Game.validateInput("H"));
+		assertEquals("H", Game.validateInput("h"));
 		
-		assertEquals("S", Game.ValidateInput("S"));
-		assertEquals("S", Game.ValidateInput("s"));
+		assertEquals("S", Game.validateInput("S"));
+		assertEquals("S", Game.validateInput("s"));
 	}
 	
 	@Test
 	public void testValidateInputInvalidString() {
-		assertEquals(null, Game.ValidateInput("invalid"));
-		assertEquals(null, Game.ValidateInput(2));
-		assertEquals(null, Game.ValidateInput(2.4));
-		assertEquals(null, Game.ValidateInput(""));
+		assertEquals(null, Game.validateInput("invalid"));
+		assertEquals(null, Game.validateInput(2));
+		assertEquals(null, Game.validateInput(2.4));
+		assertEquals(null, Game.validateInput(""));
 	}
 	
 	@Test
