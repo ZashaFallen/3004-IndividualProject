@@ -1,12 +1,19 @@
 package core;
 
+import java.util.Objects;
+import java.util.Scanner;
+
 public class Game {
 	
-	private static final String[] validInputs =  {"C", "F", "H", "S"};
+	public static String gameState = "";
+	private static final String[] validInputs =  {"Q", "C", "F", "H", "S"};
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		Scanner s = new Scanner(System.in);
+		
+		System.out.print("test");
+		s.close();
 	}
+
 	
 }

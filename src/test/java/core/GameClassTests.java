@@ -1,32 +1,56 @@
 package core;
 
+import org.junit.Test;
+
 import junit.framework.TestCase;
 
 public class GameClassTests  extends TestCase {
 	
+	@Test
 	public void testValidateInputValidString() {
-		Game game = new Game();
+		assertEquals("C", Game.ValidateInput("C"));
+		assertEquals("C", Game.ValidateInput("c"));
 		
-		assertEquals("C", game.ValidateInput("C"));
-		assertEquals("C", game.ValidateInput("c"));
+		assertEquals("F", Game.ValidateInput("F"));
+		assertEquals("F", Game.ValidateInput("f"));
 		
-		assertEquals("F", game.ValidateInput("F"));
-		assertEquals("F", game.ValidateInput("f"));
+		assertEquals("H", Game.ValidateInput("H"));
+		assertEquals("H", Game.ValidateInput("h"));
 		
-		assertEquals("H", game.ValidateInput("H"));
-		assertEquals("H", game.ValidateInput("h"));
-		
-		assertEquals("S", game.ValidateInput("S"));
-		assertEquals("S", game.ValidateInput("s"));
+		assertEquals("S", Game.ValidateInput("S"));
+		assertEquals("S", Game.ValidateInput("s"));
 	}
 	
+	@Test
 	public void testValidateInputInvalidString() {
-		Game game = new Game();
+		assertEquals(null, Game.ValidateInput("invalid"));
+		assertEquals(null, Game.ValidateInput(2));
+		assertEquals(null, Game.ValidateInput(2.4));
+		assertEquals(null, Game.ValidateInput(""));
+	}
+	
+	@Test
+	public void testSetGameState() {
+		Game.setGameState("Q");
+		assertEquals("quit", Game.gameState);
 		
-		assertEquals(null, game.ValidateInput("invalid"));
-		assertEquals(null, game.ValidateInput(2));
-		assertEquals(null, game.ValidateInput(2.4));
-		assertEquals(null, game.ValidateInput(""));
+		Game.setGameState("F");
+		assertEquals("file", Game.gameState);
+		
+		Game.setGameState("C");
+		assertEquals("console", Game.gameState);
+	}
+	
+	@Test
+	public void testSetInvalidGameState() {
+		Game.setGameState("");
+		assertEquals("", Game.gameState);
+		
+		Game.setGameState(123);
+		assertEquals("", Game.gameState);
+		
+		Game.setGameState("abc");
+		assertEquals("", Game.gameState);
 	}
 	
 }
