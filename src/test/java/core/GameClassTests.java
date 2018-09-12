@@ -1,10 +1,9 @@
 package core;
 
 import org.junit.Test;
-
 import junit.framework.TestCase;
 
-public class GameClassTests  extends TestCase {
+public class GameClassTests extends TestCase {
 	
 	@Test
 	public void testValidateInputValidString() {
