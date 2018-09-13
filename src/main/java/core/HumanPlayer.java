@@ -7,6 +7,6 @@ public class HumanPlayer extends Player {
 	}
 	
 	public String showHand() {
-		return null;
+		return "Your Hand: " + hand.getCards();
 	}
 }

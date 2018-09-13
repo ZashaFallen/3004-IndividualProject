@@ -2,6 +2,7 @@ package core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Hand {
 	public List<Card> cards = new ArrayList<Card>();
@@ -11,11 +12,17 @@ public class Hand {
 	}
 	
 	public String getCards() {
-		return null;
+		String playerHand = cards.stream().map(i -> i.toString()).collect(Collectors.joining(", "));
+		
+		if (cards.size() == 0) {
+			playerHand = "Empty";
+		}
+		
+		return playerHand;
 	}
 	
 	public String getFirstCard() {
-		return null;
+		return cards.get(0).toString();
 	}
 	
 	public int getScore() {
