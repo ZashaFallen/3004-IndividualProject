@@ -20,6 +20,10 @@ public class Deck {
 		Collections.shuffle(cards);
 	}	
 	
+
+	public void shuffle() {
+		
+	}
 	
 	
 	private void populateRanks() {
