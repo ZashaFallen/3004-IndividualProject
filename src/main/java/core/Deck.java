@@ -24,6 +24,11 @@ public class Deck {
 	}
 	
 	
+	public Card draw() {
+		return cards.remove(0);
+	}
+	
+	
 	private void populateRanks() {
 		ranks.put("A", 0);
 		ranks.put("2", 2);

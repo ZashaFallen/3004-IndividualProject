@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class Game {
 	
 	public static String gameState = "";
-	
 	private static final String[] validInputs =  {"Q", "C", "F", "H", "S"};
+	
 	
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
@@ -17,8 +17,11 @@ public class Game {
 			setGameState(s.nextLine());
 		}
 		
-		if (gameState.equals("console") ) {
+		if (gameState.equals("console")) {
 			Deck deck = new Deck();
+		}
+		else if (gameState.equals("file")) {
+			System.out.print("File input is not supported yet.");
 		}
 		
 		s.close();
@@ -41,7 +44,6 @@ public class Game {
 		
 		if (input == null) {
 			System.out.println("Invalid input. Please enter 'C' for console input, 'F' for file input, or 'Q' to quit.\r\n");
-			System.out.print("Would you like to use (c)onsole or (f)file input?: ");
 		}
 		else if (input.equals("C")) state = "console";
 		else if (input.equals("F")) state = "file";
