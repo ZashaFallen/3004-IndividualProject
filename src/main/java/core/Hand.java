@@ -12,6 +12,23 @@ public class Hand {
 	
 	
 	public int getScore() {
-		return 0;
+		int score = 0;
+		int acesCount = 0;
+		
+		for (Card card : cards) {
+			if (card.value == 0) {
+				score += 11;
+				acesCount += 1;
+			}
+			else {
+				score += card.value;
+			}
+		}
+		
+		for (int i = acesCount; i > 0 && score > 21; i--) {
+			score -= 10;
+		}
+		
+		return score;
 	}
 }

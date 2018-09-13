@@ -12,7 +12,15 @@ public class HandClassTests extends TestCase{
 		hand.add(new Card("C", "K", 10));
 		hand.add(new Card("D", "5", 5));
 		assertEquals(15, hand.getScore());
-
+	}
+	
+	@Test
+	public void testGetScoreAces() {
+		Hand hand = new Hand();
+		
+		hand.add(new Card("C", "K", 10));
+		hand.add(new Card("D", "5", 5));
+		assertEquals(15, hand.getScore());
 		hand.add(new Card("A", "A", 0));
 		assertEquals(16, hand.getScore());
 		
@@ -20,7 +28,6 @@ public class HandClassTests extends TestCase{
 		hand.add(new Card("A", "A", 0));
 		hand.add(new Card("A", "A", 0));
 		assertEquals(12, hand.getScore());
-		
 		hand.add(new Card("9", "9", 9));
 		assertEquals(21, hand.getScore());
 	}
