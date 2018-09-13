@@ -16,18 +16,16 @@ public class Deck {
 				cards.add(new Card(s, r, ranks.get(r)));
 			}
 		}
-		
-		Collections.shuffle(cards);
 	}	
 	
 
 	public void shuffle() {
-		
+		Collections.shuffle(cards);
 	}
 	
 	
 	private void populateRanks() {
-		ranks.put("A", 11);
+		ranks.put("A", 0);
 		ranks.put("2", 2);
 		ranks.put("3", 3);
 		ranks.put("4", 4);

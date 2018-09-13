@@ -20,7 +20,7 @@ public class DeckClassTests extends TestCase{
 	@Test
 	public void testShuffleDeck() {
 		Deck deck = new Deck();
-		List<Card> initialCardList = deck.cards;
+		List<Card> initialCardList = new ArrayList<Card>(deck.cards);
 		
 		deck.shuffle();
 		
