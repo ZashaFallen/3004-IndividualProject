@@ -22,7 +22,8 @@ public class Player {
 		return hand.getScore();
 	}
 	
-	public void showHand() {
+	public String showHand() {
 		// implemented in 'HumanPlayer' and 'DealerPlayer'.
+		return null;
 	}
 }

@@ -3,7 +3,7 @@ package core;
 import java.util.*;
 
 public class Deck {	
-	public static String[] suits = {"C", "D", "H", "S"};
+	public static String[] suits = {"Clubs", "Diamonds", "Hearts", "Spades"};
 	public static Map<String, Integer> ranks = new HashMap<String, Integer>();
 	
 	public List<Card> cards = new ArrayList<Card>();

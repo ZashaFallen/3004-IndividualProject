@@ -10,6 +10,13 @@ public class Hand {
 		cards.add(card);
 	}
 	
+	public String getCards() {
+		return null;
+	}
+	
+	public String getFirstCard() {
+		return null;
+	}
 	
 	public int getScore() {
 		int score = 0;
