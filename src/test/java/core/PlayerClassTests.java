@@ -32,12 +32,13 @@ public class PlayerClassTests extends TestCase {
 		Deck deck = new Deck();
 		DealerPlayer dealer = new DealerPlayer(deck);
 		
+		dealer.hand = new Hand();
 		dealer.hand.add(new Card("Clubs", "8", 8));
-		assertEquals("8 of Clubs", dealer.showHand());
+		assertEquals("Dealer's Hand: 8 of Clubs", dealer.showHand());
 		
 		dealer.hand.add(new Card("Hearts", "Ace", 0));
 		dealer.hand.add(new Card("Diamonds", "5", 5));
-		assertEquals("8 of Clubs, [FACE DOWN], [FACE DOWN]", dealer.showHand());
+		assertEquals("Dealer's Hand: 8 of Clubs, [FACE DOWN], [FACE DOWN]", dealer.showHand());
 	}
 	
 	@Test
@@ -45,12 +46,13 @@ public class PlayerClassTests extends TestCase {
 		Deck deck = new Deck();
 		HumanPlayer human = new HumanPlayer(deck);
 		
+		human.hand = new Hand();
 		human.hand.add(new Card("Clubs", "8", 8));
-		assertEquals("8 of Clubs", human.showHand());
+		assertEquals("Your Hand: 8 of Clubs", human.showHand());
 		
 		human.hand.add(new Card("Hearts", "Ace", 0));
 		human.hand.add(new Card("Diamonds", "5", 5));
-		assertEquals("8 of Clubs, Ace of Hearts, 5 of Diamonds", human.showHand());
+		assertEquals("Your Hand: 8 of Clubs, Ace of Hearts, 5 of Diamonds", human.showHand());
 	}
 	
 }
