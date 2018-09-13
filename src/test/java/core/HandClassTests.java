@@ -65,4 +65,17 @@ public class HandClassTests extends TestCase{
 		assertEquals(10, hand.getScore());
 	}
 	
+	@Test
+	public void testGetCards() {
+		Hand hand = new Hand();
+		
+		assertEquals("Empty", hand.getCards());
+		
+		hand.add(new Card("C", "A", 0));
+		hand.add(new Card("H", "8", 8));
+		hand.add(new Card("H", "K", 10));
+		
+		assertEquals("Ace of Clubs, 8 of Hearts, King of Hearts", hand.getCards());
+	}
+	
 }
