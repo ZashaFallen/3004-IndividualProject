@@ -51,6 +51,19 @@ public class Hand {
 	}
 	
 	public String checkHandState() {
-
+		String state = "";
+		int score = this.getScore();
+		
+		if (score < 21) {
+			state = HAND_SAFE;
+		}
+		else if (score == 21) {
+			state = HAND_BLACKJACK;
+		}
+		else if (score > 21) {
+			state = HAND_BUSTED;
+		}
+		
+		return state;
 	}
 }
