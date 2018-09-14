@@ -26,4 +26,12 @@ public class Player {
 		// implemented in 'HumanPlayer' and 'DealerPlayer'.
 		return null;
 	}
+	
+	public String checkHandState() {
+		String state = "";
+		
+		
+		
+		return state;
+	}
 }
