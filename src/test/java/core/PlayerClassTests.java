@@ -55,21 +55,4 @@ public class PlayerClassTests extends TestCase {
 		assertEquals("Your Hand: 8 of Clubs, Ace of Hearts, 5 of Diamonds", human.showHand());
 	}
 	
-	
-	@Test
-	public void testPlayerBlackjack() {
-		Deck deck = new Deck();
-		Player player = new Player(deck);
-		player.hand = new Hand();
-		
-		player.hand.add(new Card("Spades", "King", 10));
-		player.hand.add(new Card("Spades", "8", 8));
-		assertEquals("safe", player.checkHandState());
-		
-		player.hand.add(new Card("Hearts", "3", 3));
-		assertEquals("blackjack", player.checkHandState());
-		
-		player.hand.add(new Card("Hearts", "5", 5));
-		assertEquals("busted", player.checkHandState());
-	}
 }

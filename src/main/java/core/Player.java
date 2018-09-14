@@ -27,11 +27,7 @@ public class Player {
 		return null;
 	}
 	
-	public String checkHandState() {
-		String state = "";
-		
-		
-		
-		return state;
+	public String getHandState() {		
+		return hand.checkHandState();
 	}
 }

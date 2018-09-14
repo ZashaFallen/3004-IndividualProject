@@ -91,4 +91,19 @@ public class HandClassTests extends TestCase{
 		assertEquals("Ace of Clubs", hand.getFirstCard());
 	}
 	
+	@Test
+	public void testHandGetState() {
+		Hand hand = new Hand();
+		
+		hand.add(new Card("Spades", "King", 10));
+		hand.add(new Card("Spades", "8", 8));
+		assertEquals("safe", hand.checkHandState());
+		
+		hand.add(new Card("Hearts", "3", 3));
+		assertEquals("blackjack", hand.checkHandState());
+		
+		hand.add(new Card("Hearts", "5", 5));
+		assertEquals("busted", hand.checkHandState());
+	}
+	
 }
