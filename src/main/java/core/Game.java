@@ -38,7 +38,10 @@ public class Game {
 				System.out.println(winner());
 			}
 			else {
+				human.takeTurn(deck);
+				dealer.takeTurn(deck);
 				
+				System.out.println(winner());
 			}
 		}
 		else if (gameState == GameState.file) {
@@ -55,7 +58,8 @@ public class Game {
 		human = new HumanPlayer(deck);
 		dealer = new DealerPlayer(deck);
 		
-		System.out.println(dealer.showHand());
+		System.out.print(System.lineSeparator());
+		System.out.println(dealer.showHand(false));
 		System.out.println(human.showHand());
 	}
 	
@@ -104,7 +108,7 @@ public class Game {
 	 * Created:	12/09/2018
 	 **************/
 	protected static String validateInput(Object rawInput) {
-		String input = null;
+		String input = "INVALID";
 		
 		rawInput = rawInput.toString().toUpperCase();
 		for (String s : validInputs) {
@@ -117,40 +121,65 @@ public class Game {
 	protected static boolean checkInitialBlackjack() {
 		boolean check = false;
 		
-		if (human.getHandState() == Player.PlayerState.blackjack || dealer.getHandState() == Player.PlayerState.blackjack) {
+		if (dealer.getHandState() == Player.PlayerState.blackjack) {
 			check = true;
+			dealer.initialBlackjack = true;
+		}
+		if (human.getHandState() == Player.PlayerState.blackjack) {
+			check = true;
+			human.initialBlackjack = true;
 		}
 		
 		return check;
 	}
 	
+	protected static void displayBothHands() {
+		System.out.println(System.lineSeparator());
+		System.out.println(dealer.showHand(true));
+		System.out.println(human.showHand());
+	}
+	
 	protected static String winner() {
 		final String win = "You Win!";
 		final String lose = "The Dealer Wins!";
-		String winMessage = "";
+		String winMessage;
 		
-		// The dealer has a blackjack
-		if (dealer.getHandState() == Player.PlayerState.blackjack) {
-			winMessage = lose;
+		displayBothHands();
+		
+		if (dealer.initialBlackjack) {
+			winMessage = "The dealer gets an initial blackjack and automatically wins!";
 		}
-		// The human has a blackjack, and the dealer does not
-		else if (human.getHandState() == Player.PlayerState.blackjack) {
-			winMessage = win;
-		}
-		else if (human.getHandState() == Player.PlayerState.safe) {
-			// the dealer busts, and the player is safe
-			// neither player busts, and the human's score is higher
-			if (dealer.getHandState() == Player.PlayerState.busted ||
-				human.getScore() > dealer.getScore()) {
-				winMessage = win;
-			}
-			// the human busts
-			else {
-				winMessage = lose;
-			}
+		else if (human.initialBlackjack) {
+			winMessage = "You get an initial blackjack and win!";
 		}
 		else {
-			winMessage = "Both players bust! This shouldn't happen!";
+			// The dealer has a blackjack
+			if (dealer.getHandState() == Player.PlayerState.blackjack) {
+				winMessage = lose;
+			}
+			// The human has a blackjack, and the dealer does not
+			else if (human.getHandState() == Player.PlayerState.blackjack) {
+				winMessage = win;
+			}
+			else if (human.getHandState() == Player.PlayerState.busted &&
+					dealer.getHandState() == Player.PlayerState.safe) {
+				winMessage = lose;
+			}
+			else if (human.getHandState() == Player.PlayerState.safe) {
+				// the dealer busts, and the player is safe
+				// neither player busts, and the human's score is higher
+				if (dealer.getHandState() == Player.PlayerState.busted ||
+					human.getScore() > dealer.getScore()) {
+					winMessage = win;
+				}
+				// the human busts
+				else {
+					winMessage = lose;
+				}
+			}
+			else {
+				winMessage = "Both players bust! This shouldn't happen!";
+			}
 		}
 	
 		return winMessage;

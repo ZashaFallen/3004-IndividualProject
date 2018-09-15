@@ -10,6 +10,7 @@ public class Player {
 	}
 	
 	public Hand hand;
+	public boolean initialBlackjack = false;
 	
 	public Player(Deck deck) {
 		hand = new Hand();
@@ -38,7 +39,7 @@ public class Player {
 		return hand.checkState();
 	}
 	
-	public void takeTurn() {
+	public void takeTurn(Deck deck) {
 		// implemented in 'HumanPlayer' and 'DealerPlayer'
 	}
 }
