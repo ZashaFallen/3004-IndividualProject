@@ -37,11 +37,11 @@ public class PlayerClassTests extends TestCase {
 		
 		dealer.hand = new Hand();
 		dealer.hand.add(new Card("Clubs", "8", 8));
-		assertEquals("Dealer's Hand: 8 of Clubs", dealer.showHand());
+		assertEquals("Dealer's Hand: 8 of Clubs", dealer.showHand(false));
 		
 		dealer.hand.add(new Card("Hearts", "Ace", 0));
 		dealer.hand.add(new Card("Diamonds", "5", 5));
-		assertEquals("Dealer's Hand: 8 of Clubs, [FACE DOWN], [FACE DOWN]", dealer.showHand());
+		assertEquals("Dealer's Hand: 8 of Clubs, Ace of Hearts, 5 of Diamonds", dealer.showHand(true));
 	}
 	
 	@Test
@@ -93,8 +93,10 @@ public class PlayerClassTests extends TestCase {
 	public void testHumanPlayerTurn() {
 		Deck deck = new Deck();
 		deck.shuffle();
-		DealerPlayer human = new DealerPlayer(deck);
-		human.takeTurn();
+		HumanPlayer human = new HumanPlayer(deck);
+		
+		human.showHand();
+		human.takeTurn(deck);
 		
 		assertThat(human.getHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
 	}
@@ -104,7 +106,9 @@ public class PlayerClassTests extends TestCase {
 		Deck deck = new Deck();
 		deck.shuffle();
 		DealerPlayer dealer = new DealerPlayer(deck);
-		dealer.takeTurn();
+		
+		dealer.showHand(true);
+		dealer.takeTurn(deck);
 		
 		assertThat(dealer.getHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
 	}

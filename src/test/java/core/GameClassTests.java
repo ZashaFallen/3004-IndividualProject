@@ -22,10 +22,10 @@ public class GameClassTests extends TestCase {
 	
 	@Test
 	public void testValidateInputInvalidString() {
-		assertEquals(null, Game.validateInput("invalid"));
-		assertEquals(null, Game.validateInput(2));
-		assertEquals(null, Game.validateInput(2.4));
-		assertEquals(null, Game.validateInput(""));
+		assertEquals("INVALID", Game.validateInput("invalid"));
+		assertEquals("INVALID", Game.validateInput(2));
+		assertEquals("INVALID", Game.validateInput(2.4));
+		assertEquals("INVALID", Game.validateInput(""));
 	}
 	
 	@Test
