@@ -1,7 +1,10 @@
 package core;
 
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Test;
 import junit.framework.TestCase;
+
 
 public class PlayerClassTests extends TestCase {
 	
@@ -84,5 +87,25 @@ public class PlayerClassTests extends TestCase {
 		// if dealer.getHandScore() > 17 (with ace), stay
 		dealer.hand.add(new Card("Hearts", "3", 3));
 		assertEquals(false, dealer.checkHit());
+	}
+	
+	@Test
+	public void testHumanPlayerTurn() {
+		Deck deck = new Deck();
+		deck.shuffle();
+		DealerPlayer human = new DealerPlayer(deck);
+		human.takeTurn();
+		
+		assertThat(human.getHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
+	}
+	
+	@Test
+	public void testDealerPlayerTurn() {
+		Deck deck = new Deck();
+		deck.shuffle();
+		DealerPlayer dealer = new DealerPlayer(deck);
+		dealer.takeTurn();
+		
+		assertThat(dealer.getHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
 	}
 }

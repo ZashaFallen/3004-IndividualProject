@@ -65,7 +65,7 @@ public class GameClassTests extends TestCase {
 		Game.dealer.hand = new Hand();
 		Game.dealer.hand.add(new Card("Hearts", "6", 6));
 		Game.dealer.hand.add(new Card("Spades", "8", 8));
-		assertEquals(false, Game.checkBlackjack());
+		assertEquals(false, Game.checkInitialBlackjack());
 		
 		
 		// human has a blackjack
@@ -75,7 +75,7 @@ public class GameClassTests extends TestCase {
 		Game.dealer.hand = new Hand();
 		Game.dealer.hand.add(new Card("Hearts", "6", 6));
 		Game.dealer.hand.add(new Card("Spades", "8", 8));
-		assertEquals(true, Game.checkBlackjack());
+		assertEquals(true, Game.checkInitialBlackjack());
 		
 		// dealer has a blackjack
 		Game.human.hand = new Hand();
@@ -84,7 +84,7 @@ public class GameClassTests extends TestCase {
 		Game.dealer.hand = new Hand();
 		Game.dealer.hand.add(new Card("Hearts", "Ace", 0));
 		Game.dealer.hand.add(new Card("Spades", "10", 10));
-		assertEquals(true, Game.checkBlackjack());
+		assertEquals(true, Game.checkInitialBlackjack());
 		
 		// both have blackjack
 		Game.human.hand = new Hand();
@@ -93,7 +93,7 @@ public class GameClassTests extends TestCase {
 		Game.dealer.hand = new Hand();
 		Game.dealer.hand.add(new Card("Hearts", "Jack", 10));
 		Game.dealer.hand.add(new Card("Spades", "Ace", 0));
-		assertEquals(true, Game.checkBlackjack());
+		assertEquals(true, Game.checkInitialBlackjack());
 	}
 	
 	
