@@ -16,4 +16,21 @@ public class DealerPlayer extends Player {
 		
 		return dealerHand;
 	}
+	
+	public boolean checkHit() {
+		boolean check = false;
+		int score = getScore();
+		
+		if (score <= 16) {
+			check = true;
+		}
+		else if (score == 17 && hand.containsAce()) {
+			check = true;
+		}
+		else {
+			check = false;
+		}
+		
+		return check;
+	}
 }

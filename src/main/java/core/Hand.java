@@ -66,4 +66,14 @@ public class Hand {
 		
 		return state;
 	}
+	
+	public boolean containsAce() {
+		boolean check = false;
+		
+		for (Card c : cards) {
+			if (c.value == 0) check = true;
+		}
+		
+		return check;
+	}
 }
