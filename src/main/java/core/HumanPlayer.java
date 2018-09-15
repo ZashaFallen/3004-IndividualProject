@@ -8,10 +8,12 @@ public class HumanPlayer extends Player {
 		super(deck);
 	}
 	
+	@Override
 	public String showHand() {
 		return "Your Hand: " + hand.getCards();
 	}
 	
+	@Override
 	public void takeTurn(Deck deck) {
 		Scanner s = new Scanner(System.in);
 		String response = "";
@@ -22,7 +24,7 @@ public class HumanPlayer extends Player {
 			
 			if (response.equals("H")) {
 				System.out.println("You hit: " + hit(deck).toString());
-				System.out.println("Current score: " + getScore());
+				System.out.println("Current score: " + getHandScore());
 				
 				if (getHandState() == PlayerState.busted) {
 					System.out.println("\r\nYou bust!");

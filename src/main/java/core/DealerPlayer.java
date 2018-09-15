@@ -26,7 +26,7 @@ public class DealerPlayer extends Player {
 	
 	public boolean checkHit() {
 		boolean check = false;
-		int score = getScore();
+		int score = getHandScore();
 		
 		if (Game.human.getHandState() == PlayerState.busted) {
 			check = false;
@@ -46,6 +46,7 @@ public class DealerPlayer extends Player {
 		return check;
 	}
 	
+	@Override
 	public void takeTurn(Deck deck) {
 		System.out.print(System.lineSeparator());
 		System.out.println(this.showHand(false));

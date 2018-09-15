@@ -27,7 +27,7 @@ public class PlayerClassTests extends TestCase {
 		
 		handCopy.add(player.hit(deck));
 		
-		assertEquals(handCopy.getScore(), player.getScore());
+		assertEquals(handCopy.getScore(), player.getHandScore());
 	}
 	
 	@Test
@@ -114,5 +114,25 @@ public class PlayerClassTests extends TestCase {
 		human.takeTurn(deck);
 		
 		assertThat(human.getHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
+	}
+	
+	@Test
+	public void testPlayerSplit() {
+		Deck deck = new Deck();
+		Player player = new Player(deck);
+		Game.human = new HumanPlayer(deck);
+		
+		// dealer's hand adds to 17 or less
+		player.hand = new Hand();
+		player.hand.add(new Card("C", "8", 8));
+		player.hand.add(new Card("D", "8", 8));
+		
+		player.split();
+		assertEquals(true, player.split);
+		assertEquals(player.splitHand, player.currentHand);
+		assertEquals(2, player.hand.cards.size());
+		assertEquals(2, player.splitHand.cards.size());
+		assertEquals("C8", player.hand.cards.get(0).toString());
+		assertEquals("D8", player.splitHand.cards.get(0).toString());
 	}
 }

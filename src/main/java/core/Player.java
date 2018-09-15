@@ -10,13 +10,19 @@ public class Player {
 	}
 	
 	public Hand hand;
+	public Hand splitHand = null;
 	public boolean initialBlackjack = false;
+	
+	protected boolean split;
+	protected Hand currentHand;
 	
 	public Player(Deck deck) {
 		hand = new Hand();
 		
 		hand.add(deck.draw());
 		hand.add(deck.draw());
+		
+		currentHand = hand;
 	}
 	
 	public Card hit(Deck deck) {
@@ -26,8 +32,12 @@ public class Player {
 		return newCard;
 	}
 	
-	public int getScore() {
+	public int getHandScore() {
 		return hand.getScore();
+	}
+	
+	public int getSplitHandScore() {
+		return splitHand.getScore();
 	}
 	
 	public String showHand() {
@@ -39,7 +49,15 @@ public class Player {
 		return hand.checkState();
 	}
 	
+	public PlayerState getSplitHandState() {	
+		return splitHand.checkState();
+	}
+	
 	public void takeTurn(Deck deck) {
 		// implemented in 'HumanPlayer' and 'DealerPlayer'
+	}
+	
+	protected void split() {
+		
 	}
 }

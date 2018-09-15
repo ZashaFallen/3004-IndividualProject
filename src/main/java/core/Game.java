@@ -137,8 +137,8 @@ public class Game {
 	
 	protected static void displayBothHands() {
 		System.out.println(System.lineSeparator());
-		System.out.println(dealer.showHand(true) + " Total Score: " + dealer.getScore());
-		System.out.println(human.showHand() + " Total Score: " + human.getScore());
+		System.out.println(dealer.showHand(true) + " Total Score: " + dealer.getHandScore());
+		System.out.println(human.showHand() + " Total Score: " + human.getHandScore());
 	}
 	
 	protected static String winner() {
@@ -171,7 +171,7 @@ public class Game {
 				// the dealer busts, and the player is safe
 				// neither player busts, and the human's score is higher
 				if (dealer.getHandState() == Player.PlayerState.busted ||
-					human.getScore() > dealer.getScore()) {
+					human.getHandScore() > dealer.getHandScore()) {
 					winMessage = win;
 				}
 				// the human busts
