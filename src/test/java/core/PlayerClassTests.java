@@ -1,6 +1,9 @@
 package core;
 
 import static org.hamcrest.Matchers.*;
+
+import java.util.ArrayList;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Test;
 import junit.framework.TestCase;
@@ -101,6 +104,28 @@ public class PlayerClassTests extends TestCase {
 		dealer.takeTurn(deck);
 		
 		assertThat(dealer.getHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
+		
+		
+		// dealer's hand adds to 17 or less
+		deck = new Deck();
+		deck.cards = new ArrayList<Card>();
+		deck.cards.add(new Card("C", "8", 8)); // dealer's first card
+		deck.cards.add(new Card("D", "8", 8)); // dealer's second card
+		dealer = new DealerPlayer(deck);
+		deck.cards.add(new Card("H", "10", 10)); // human's first card
+		deck.cards.add(new Card("D", "7", 7));   // human's second card
+		Game.human = new HumanPlayer(deck);
+		deck.cards.add(new Card("C", "A", 0)); // automatically added to dealer's first hand. Dealer should stay first hand (with a 19)
+		deck.cards.add(new Card("H", "5", 5)); // automatically added to dealer's split hand. Dealer should hit split hand
+		deck.cards.add(new Card("H", "7", 7)); // added to dealer's split hand on hit. Dealer should stay split hand (with a 20)
+		
+		dealer.takeTurn(deck);
+		assertEquals(true, dealer.split);
+
+		assertEquals(19, dealer.hand.getScore());
+		assertEquals(2, dealer.hand.cards.size());
+		assertEquals(20, dealer.splitHand.getScore());
+		assertEquals(3, dealer.splitHand.cards.size());
 	}
 	
 	@Test
@@ -120,9 +145,7 @@ public class PlayerClassTests extends TestCase {
 	public void testPlayerSplit() {
 		Deck deck = new Deck();
 		Player player = new Player(deck);
-		Game.human = new HumanPlayer(deck);
 		
-		// dealer's hand adds to 17 or less
 		player.hand = new Hand();
 		player.hand.add(new Card("C", "8", 8));
 		player.hand.add(new Card("D", "8", 8));
