@@ -96,4 +96,48 @@ public class GameClassTests extends TestCase {
 		assertEquals(true, Game.checkBlackjack());
 	}
 	
+	
+	@Test
+	public void testWinner() {
+		Deck deck = new Deck();
+		Game.human = new HumanPlayer(deck);
+		Game.dealer = new DealerPlayer(deck);
+		
+		// neither have a blackjack
+		Game.human.hand = new Hand();
+		Game.human.hand.add(new Card("Hearts", "9", 9));
+		Game.human.hand.add(new Card("Hearts", "5", 5));
+		Game.dealer.hand = new Hand();
+		Game.dealer.hand.add(new Card("Hearts", "6", 6));
+		Game.dealer.hand.add(new Card("Spades", "8", 8));
+		assertEquals("Error, no one has a blackjack!", Game.winner());
+		
+		
+		// human has a blackjack
+		Game.human.hand = new Hand();
+		Game.human.hand.add(new Card("Hearts", "King", 10));
+		Game.human.hand.add(new Card("Hearts", "Ace", 0));
+		Game.dealer.hand = new Hand();
+		Game.dealer.hand.add(new Card("Hearts", "6", 6));
+		Game.dealer.hand.add(new Card("Spades", "8", 8));
+		assertEquals("You win!", Game.winner());
+		
+		// dealer has a blackjack
+		Game.human.hand = new Hand();
+		Game.human.hand.add(new Card("Hearts", "9", 9));
+		Game.human.hand.add(new Card("Hearts", "5", 5));
+		Game.dealer.hand = new Hand();
+		Game.dealer.hand.add(new Card("Hearts", "Ace", 0));
+		Game.dealer.hand.add(new Card("Spades", "10", 10));
+		assertEquals("The dealer wins!", Game.winner());
+		
+		// both have blackjack
+		Game.human.hand = new Hand();
+		Game.human.hand.add(new Card("Hearts", "Ace", 0));
+		Game.human.hand.add(new Card("Hearts", "10", 10));
+		Game.dealer.hand = new Hand();
+		Game.dealer.hand.add(new Card("Hearts", "Jack", 10));
+		Game.dealer.hand.add(new Card("Spades", "Ace", 0));
+		assertEquals("The dealer wins!", Game.winner());
+	}
 }
