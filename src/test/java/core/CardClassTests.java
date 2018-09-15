@@ -6,10 +6,10 @@ import junit.framework.TestCase;
 public class CardClassTests extends TestCase{
 	@Test
 	public void testCreateCard() {
-		Card card = new Card("C", "3", 3);
-		assertEquals("C3", card.toString());
+		Card card = new Card("Clubs", "3", 3);
+		assertEquals("3 of Clubs", card.toString());
 		
-		card = new Card("C", "J", 10);
-		assertEquals("CJ", card.toString());
+		card = new Card("Clubs", "Jack", 10);
+		assertEquals("Jack of Clubs", card.toString());
 	}
 }

@@ -30,26 +30,26 @@ public class GameClassTests extends TestCase {
 	
 	@Test
 	public void testSetGameState() {
-		Game.setGameState("Q");
-		assertEquals("quit", Game.gameState);
+		Game.GameState gameState = Game.getGameState("Q");
+		assertEquals(Game.GameState.quit, gameState);
 		
-		Game.setGameState("F");
-		assertEquals("file", Game.gameState);
+		gameState = Game.getGameState("F");
+		assertEquals(Game.GameState.file, gameState);
 		
-		Game.setGameState("C");
-		assertEquals("console", Game.gameState);
+		gameState = Game.getGameState("C");
+		assertEquals(Game.GameState.console, gameState);
 	}
 	
 	@Test
 	public void testSetInvalidGameState() {
-		Game.setGameState("");
-		assertEquals("", Game.gameState);
+		Game.GameState gameState = Game.getGameState("");
+		assertEquals(Game.GameState.invalid, gameState);
 		
-		Game.setGameState(123);
-		assertEquals("", Game.gameState);
+		gameState = Game.getGameState(123);
+		assertEquals(Game.GameState.invalid, gameState);
 		
-		Game.setGameState("abc");
-		assertEquals("", Game.gameState);
+		gameState = Game.getGameState("abc");
+		assertEquals(Game.GameState.invalid, gameState);
 	}
 	
 }
