@@ -55,4 +55,31 @@ public class PlayerClassTests extends TestCase {
 		assertEquals("Your Hand: 8 of Clubs, Ace of Hearts, 5 of Diamonds", human.showHand());
 	}
 	
+	@Test
+	public void testDealerPlayerHit() {
+		Deck deck = new Deck();
+		DealerPlayer dealer = new DealerPlayer(deck);
+		
+		// if dealer.getHandScore() <= 16, hit
+		dealer.hand = new Hand();
+		dealer.hand.add(new Card("Clubs", "8", 8));
+		assertEquals(true, dealer.checkDealerHit());
+		
+		// if dealer.getHandScore() <= 16, hit
+		dealer.hand.add(new Card("Hearts", "6", 6));
+		dealer.hand.add(new Card("Hearts", "2", 2));
+		assertEquals(true, dealer.checkDealerHit());
+		
+		// if dealer.getHandScore() > 16 (and not soft 16), stay
+		dealer.hand = new Hand();
+		dealer.hand.add(new Card("Clubs", "4", 8));
+		assertEquals(false, dealer.checkDealerHit());
+		
+		// if dealer.getHandScore() = 16 (soft 16), hit
+		dealer.hand = new Hand();
+		dealer.hand.add(new Card("Clubs", "Ace", 0));
+		dealer.hand.add(new Card("Clubs", "3", 3));
+		dealer.hand.add(new Card("Clubs", "2", 2));
+		assertEquals(false, dealer.checkDealerHit());
+	}
 }
