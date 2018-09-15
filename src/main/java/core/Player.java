@@ -30,11 +30,15 @@ public class Player {
 	}
 	
 	public String showHand() {
-		// implemented in 'HumanPlayer' and 'DealerPlayer'.
+		// implemented in 'HumanPlayer' and 'DealerPlayer'
 		return null;
 	}
 	
 	public PlayerState getHandState() {		
 		return hand.checkState();
+	}
+	
+	public void takeTurn() {
+		// implemented in 'HumanPlayer' and 'DealerPlayer'
 	}
 }

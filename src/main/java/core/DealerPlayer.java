@@ -40,4 +40,8 @@ public class DealerPlayer extends Player {
 		
 		return check;
 	}
+	
+	public void takeTurn() {
+		
+	}
 }

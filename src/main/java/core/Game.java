@@ -34,7 +34,7 @@ public class Game {
 		if (gameState == GameState.console) {
 			setUpGame();
 			
-			if (checkBlackjack()) {
+			if (checkInitialBlackjack()) {
 				System.out.println(winner());
 			}
 			else {
@@ -114,7 +114,7 @@ public class Game {
 		return input;
 	}
 	
-	protected static boolean checkBlackjack() {
+	protected static boolean checkInitialBlackjack() {
 		boolean check = false;
 		
 		if (human.getHandState() == Player.PlayerState.blackjack || dealer.getHandState() == Player.PlayerState.blackjack) {

@@ -9,4 +9,8 @@ public class HumanPlayer extends Player {
 	public String showHand() {
 		return "Your Hand: " + hand.getCards();
 	}
+	
+	public void takeTurn() {
+		
+	}
 }
