@@ -39,7 +39,9 @@ public class Game {
 			}
 			else {
 				human.takeTurn(deck);
-				dealer.takeTurn(deck);
+				if (human.getHandState() != Player.PlayerState.busted) {
+					dealer.takeTurn(deck);
+				}
 				
 				System.out.println(winner());
 			}
@@ -135,8 +137,8 @@ public class Game {
 	
 	protected static void displayBothHands() {
 		System.out.println(System.lineSeparator());
-		System.out.println(dealer.showHand(true));
-		System.out.println(human.showHand());
+		System.out.println(dealer.showHand(true) + " Total Score: " + dealer.getScore());
+		System.out.println(human.showHand() + " Total Score: " + human.getScore());
 	}
 	
 	protected static String winner() {
