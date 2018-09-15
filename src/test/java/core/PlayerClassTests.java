@@ -70,27 +70,27 @@ public class PlayerClassTests extends TestCase {
 		// if dealer.getHandScore() <= 16, hit
 		dealer.hand = new Hand();
 		dealer.hand.add(new Card("C", "8", 8));
-		assertEquals(true, dealer.checkHit());
+		assertEquals(true, dealer.checkHit(dealer.hand));
 		
 		// if dealer.getHandScore() <= 16, hit
 		dealer.hand.add(new Card("H", "6", 6));
 		dealer.hand.add(new Card("H", "2", 2));
-		assertEquals(true, dealer.checkHit());
+		assertEquals(true, dealer.checkHit(dealer.hand));
 		
 		// if dealer.getHandScore() > 16 (and not soft 17), stay
 		dealer.hand.add(new Card("C", "4", 8));
-		assertEquals(false, dealer.checkHit());
+		assertEquals(false, dealer.checkHit(dealer.hand));
 		
 		// if dealer.getHandScore() = 17 (soft 17), hit
 		dealer.hand = new Hand();
 		dealer.hand.add(new Card("C", "A", 0));
 		dealer.hand.add(new Card("C", "3", 3));
 		dealer.hand.add(new Card("C", "2", 2));
-		assertEquals(true, dealer.checkHit());
+		assertEquals(true, dealer.checkHit(dealer.hand));
 		
 		// if dealer.getHandScore() > 17 (with A), stay
 		dealer.hand.add(new Card("H", "3", 3));
-		assertEquals(false, dealer.checkHit());
+		assertEquals(false, dealer.checkHit(dealer.hand));
 	}
 	
 	@Test
@@ -118,10 +118,9 @@ public class PlayerClassTests extends TestCase {
 		deck.cards.add(new Card("C", "A", 0)); // automatically added to dealer's first hand. Dealer should stay first hand (with a 19)
 		deck.cards.add(new Card("H", "5", 5)); // automatically added to dealer's split hand. Dealer should hit split hand
 		deck.cards.add(new Card("H", "7", 7)); // added to dealer's split hand on hit. Dealer should stay split hand (with a 20)
-		
 		dealer.takeTurn(deck);
+		
 		assertEquals(true, dealer.split);
-
 		assertEquals(19, dealer.hand.getScore());
 		assertEquals(2, dealer.hand.cards.size());
 		assertEquals(20, dealer.splitHand.getScore());

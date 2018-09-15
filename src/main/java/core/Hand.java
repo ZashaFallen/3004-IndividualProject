@@ -79,4 +79,8 @@ public class Hand {
 		
 		return newCard;
 	}
+	
+	public boolean canSplit() {
+
+	}
 }

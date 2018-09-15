@@ -50,7 +50,7 @@ public class HandClassTests extends TestCase{
 	}
 	
 	@Test
-	public void testGetScoreFACards() {
+	public void testGetScoreFaceCards() {
 		Hand hand = new Hand();
 		
 		hand.add(new Card("H", "J", 10));
@@ -112,7 +112,7 @@ public class HandClassTests extends TestCase{
 	}
 	
 	@Test
-	public void testContainsA() {
+	public void testContainsAce() {
 		Hand hand = new Hand();
 		
 		assertEquals(false, hand.containsAce());
@@ -122,6 +122,19 @@ public class HandClassTests extends TestCase{
 		
 		hand.add(new Card("C", "A", 0));
 		assertEquals(true, hand.containsAce());
+	}
+	
+	@Test
+	public void testCanSplit() {
+		Hand hand = new Hand();
+		hand.add(new Card("S", "K", 10));
+		hand.add(new Card("S", "8", 8));
+		assertEquals(false, hand.canSplit());
+		
+		hand = new Hand();
+		hand.add(new Card("D", "K", 10));
+		hand.add(new Card("S", "K", 10));
+		assertEquals(true, hand.canSplit());
 	}
 	
 }

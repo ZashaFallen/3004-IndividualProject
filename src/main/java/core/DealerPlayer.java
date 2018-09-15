@@ -24,9 +24,9 @@ public class DealerPlayer extends Player {
 		return dealerHand;
 	}
 	
-	public boolean checkHit() {
+	public boolean checkHit(Hand handToCheck) {
 		boolean check = false;
-		int score = getHandScore();
+		int score = handToCheck.getScore();
 		
 		if (Game.human.getHandState() == PlayerState.busted) {
 			check = false;
@@ -35,7 +35,7 @@ public class DealerPlayer extends Player {
 			check = true;
 			showHand();
 		}
-		else if (score == 17 && hand.containsAce()) {
+		else if (score == 17 && handToCheck.containsAce()) {
 			check = true;
 			showHand();
 		}
@@ -51,7 +51,11 @@ public class DealerPlayer extends Player {
 		System.out.print(System.lineSeparator());
 		System.out.println(this.showHand(false));
 		
-		while(checkHit()) {
+		if (hand.canSplit() && hand.getScore() <= 17) {
+			split(deck);
+		}
+		
+		while(checkHit(hand)) {
 			System.out.println("The dealer hits: " + hand.hit(deck).toString());
 		}
 		if (getHandState() == PlayerState.busted) {
