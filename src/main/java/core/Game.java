@@ -27,7 +27,7 @@ public class Game {
 		Scanner s = new Scanner(System.in);
 		
 		while (gameState == GameState.invalid) {
-			System.out.print("Would you like to use (c)onsole or (f)file input?: ");
+			System.out.print("Would you like to use (c)console or (f)file input?: ");
 			gameState = getGameState(s.nextLine());
 		}
 		

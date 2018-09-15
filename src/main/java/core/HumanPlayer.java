@@ -23,7 +23,7 @@ public class HumanPlayer extends Player {
 		String response = "";
 		
 		while (!response.equals("S") && getBestHandState() != PlayerState.busted) {
-			System.out.print("\r\nWould you like to (h)it or (s)tay?: ");
+			System.out.print("\r\nWould you like to (h)hit, (s)stay, or (d)split?: ");
 			response = Game.validateInput(s.nextLine());
 			
 			if (response.equals("H")) {
@@ -36,6 +36,9 @@ public class HumanPlayer extends Player {
 			}
 			else if (response.equals("S")) {
 				System.out.println("You stay.");
+			}
+			else if (response.equals("D")) {
+				
 			}
 			else if (response.equals("INVALID")) {
 				System.out.println("That's not a valid option.\r\n\r\n");

@@ -52,25 +52,32 @@ public class DealerPlayer extends Player {
 	
 	@Override
 	public void takeTurn(Deck deck) {
+		String firstHand= "";
+		
 		System.out.print(System.lineSeparator());
 		System.out.println(this.showHand(false));
 		
 		if (hand.canSplit() && hand.getScore() <= 17) {
 			split(deck);
+			firstHand = " on their first hand";
+			System.out.println("The dealer splits.");
+			System.out.println(this.showHand(true));
 		}
 		while(checkHit(hand)) {
-			System.out.println("The dealer hits: " + hand.hit(deck).toString());
+			System.out.println("The dealer hits" + firstHand + ": " + hand.hit(deck).toString());
 		}
 		if (hand.getState() == PlayerState.busted) {
-			System.out.println("The dealer busts!");
+			System.out.println("The dealer busts " + firstHand + "!");
 		}
 		else {
-			System.out.println("The dealer stays.");
+			System.out.println("The dealer stays " + firstHand + ".");
 		}
 		
 		if (split) {
+			System.out.print(System.lineSeparator());
+			
 			while(checkHit(splitHand)) {
-				System.out.println("The dealer hits: " + splitHand.hit(deck).toString());
+				System.out.println("The dealer hits on their second hand: " + splitHand.hit(deck).toString());
 			}
 			if (splitHand.getState() == PlayerState.busted) {
 				System.out.println("The dealer busts on their second hand!");
