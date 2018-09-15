@@ -36,12 +36,12 @@ public class PlayerClassTests extends TestCase {
 		DealerPlayer dealer = new DealerPlayer(deck);
 		
 		dealer.hand = new Hand();
-		dealer.hand.add(new Card("Clubs", "8", 8));
-		assertEquals("Dealer's Hand: 8 of Clubs", dealer.showHand(false));
+		dealer.hand.add(new Card("C", "8", 8));
+		assertEquals("Dealer's Hand: C8", dealer.showHand(false));
 		
-		dealer.hand.add(new Card("Hearts", "Ace", 0));
-		dealer.hand.add(new Card("Diamonds", "5", 5));
-		assertEquals("Dealer's Hand: 8 of Clubs, Ace of Hearts, 5 of Diamonds", dealer.showHand(true));
+		dealer.hand.add(new Card("H", "A", 0));
+		dealer.hand.add(new Card("D", "5", 5));
+		assertEquals("Dealer's Hand: C8, HA, D5", dealer.showHand(true));
 	}
 	
 	@Test
@@ -50,12 +50,12 @@ public class PlayerClassTests extends TestCase {
 		HumanPlayer human = new HumanPlayer(deck);
 		
 		human.hand = new Hand();
-		human.hand.add(new Card("Clubs", "8", 8));
-		assertEquals("Your Hand: 8 of Clubs", human.showHand());
+		human.hand.add(new Card("C", "8", 8));
+		assertEquals("Your Hand: C8", human.showHand());
 		
-		human.hand.add(new Card("Hearts", "Ace", 0));
-		human.hand.add(new Card("Diamonds", "5", 5));
-		assertEquals("Your Hand: 8 of Clubs, Ace of Hearts, 5 of Diamonds", human.showHand());
+		human.hand.add(new Card("H", "A", 0));
+		human.hand.add(new Card("D", "5", 5));
+		assertEquals("Your Hand: C8, HA, D5", human.showHand());
 	}
 	
 	@Test
@@ -66,27 +66,27 @@ public class PlayerClassTests extends TestCase {
 		
 		// if dealer.getHandScore() <= 16, hit
 		dealer.hand = new Hand();
-		dealer.hand.add(new Card("Clubs", "8", 8));
+		dealer.hand.add(new Card("C", "8", 8));
 		assertEquals(true, dealer.checkHit());
 		
 		// if dealer.getHandScore() <= 16, hit
-		dealer.hand.add(new Card("Hearts", "6", 6));
-		dealer.hand.add(new Card("Hearts", "2", 2));
+		dealer.hand.add(new Card("H", "6", 6));
+		dealer.hand.add(new Card("H", "2", 2));
 		assertEquals(true, dealer.checkHit());
 		
 		// if dealer.getHandScore() > 16 (and not soft 17), stay
-		dealer.hand.add(new Card("Clubs", "4", 8));
+		dealer.hand.add(new Card("C", "4", 8));
 		assertEquals(false, dealer.checkHit());
 		
 		// if dealer.getHandScore() = 17 (soft 17), hit
 		dealer.hand = new Hand();
-		dealer.hand.add(new Card("Clubs", "Ace", 0));
-		dealer.hand.add(new Card("Clubs", "3", 3));
-		dealer.hand.add(new Card("Clubs", "2", 2));
+		dealer.hand.add(new Card("C", "A", 0));
+		dealer.hand.add(new Card("C", "3", 3));
+		dealer.hand.add(new Card("C", "2", 2));
 		assertEquals(true, dealer.checkHit());
 		
-		// if dealer.getHandScore() > 17 (with ace), stay
-		dealer.hand.add(new Card("Hearts", "3", 3));
+		// if dealer.getHandScore() > 17 (with A), stay
+		dealer.hand.add(new Card("H", "3", 3));
 		assertEquals(false, dealer.checkHit());
 	}
 	

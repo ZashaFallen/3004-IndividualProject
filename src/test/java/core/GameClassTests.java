@@ -53,46 +53,46 @@ public class GameClassTests extends TestCase {
 	}
 	
 	@Test
-	public void testCheckBlackjack() {
+	public void testCheckBlackJ() {
 		Deck deck = new Deck();
 		Game.human = new HumanPlayer(deck);
 		Game.dealer = new DealerPlayer(deck);
 		
-		// neither have a blackjack
+		// neither have a blackJ
 		Game.human.hand = new Hand();
-		Game.human.hand.add(new Card("Hearts", "9", 9));
-		Game.human.hand.add(new Card("Hearts", "5", 5));
+		Game.human.hand.add(new Card("H", "9", 9));
+		Game.human.hand.add(new Card("H", "5", 5));
 		Game.dealer.hand = new Hand();
-		Game.dealer.hand.add(new Card("Hearts", "6", 6));
-		Game.dealer.hand.add(new Card("Spades", "8", 8));
+		Game.dealer.hand.add(new Card("H", "6", 6));
+		Game.dealer.hand.add(new Card("S", "8", 8));
 		assertEquals(false, Game.checkInitialBlackjack());
 		
 		
-		// human has a blackjack
+		// human has a blackJ
 		Game.human.hand = new Hand();
-		Game.human.hand.add(new Card("Hearts", "King", 10));
-		Game.human.hand.add(new Card("Hearts", "Ace", 0));
+		Game.human.hand.add(new Card("H", "K", 10));
+		Game.human.hand.add(new Card("H", "A", 0));
 		Game.dealer.hand = new Hand();
-		Game.dealer.hand.add(new Card("Hearts", "6", 6));
-		Game.dealer.hand.add(new Card("Spades", "8", 8));
+		Game.dealer.hand.add(new Card("H", "6", 6));
+		Game.dealer.hand.add(new Card("S", "8", 8));
 		assertEquals(true, Game.checkInitialBlackjack());
 		
-		// dealer has a blackjack
+		// dealer has a blackJ
 		Game.human.hand = new Hand();
-		Game.human.hand.add(new Card("Hearts", "9", 9));
-		Game.human.hand.add(new Card("Hearts", "5", 5));
+		Game.human.hand.add(new Card("H", "9", 9));
+		Game.human.hand.add(new Card("H", "5", 5));
 		Game.dealer.hand = new Hand();
-		Game.dealer.hand.add(new Card("Hearts", "Ace", 0));
-		Game.dealer.hand.add(new Card("Spades", "10", 10));
+		Game.dealer.hand.add(new Card("H", "A", 0));
+		Game.dealer.hand.add(new Card("S", "10", 10));
 		assertEquals(true, Game.checkInitialBlackjack());
 		
-		// both have blackjack
+		// both have blackJ
 		Game.human.hand = new Hand();
-		Game.human.hand.add(new Card("Hearts", "Ace", 0));
-		Game.human.hand.add(new Card("Hearts", "10", 10));
+		Game.human.hand.add(new Card("H", "A", 0));
+		Game.human.hand.add(new Card("H", "10", 10));
 		Game.dealer.hand = new Hand();
-		Game.dealer.hand.add(new Card("Hearts", "Jack", 10));
-		Game.dealer.hand.add(new Card("Spades", "Ace", 0));
+		Game.dealer.hand.add(new Card("H", "J", 10));
+		Game.dealer.hand.add(new Card("S", "A", 0));
 		assertEquals(true, Game.checkInitialBlackjack());
 	}
 	
@@ -103,58 +103,58 @@ public class GameClassTests extends TestCase {
 		Game.human = new HumanPlayer(deck);
 		Game.dealer = new DealerPlayer(deck);
 		
-		// neither have a blackjack, human.getScore() > dealer.getScore()
+		// neither have a blackJ, human.getScore() > dealer.getScore()
 		Game.human.hand = new Hand();
-		Game.human.hand.add(new Card("Hearts", "9", 9));
-		Game.human.hand.add(new Card("Hearts", "5", 5));
+		Game.human.hand.add(new Card("H", "9", 9));
+		Game.human.hand.add(new Card("H", "5", 5));
 		Game.dealer.hand = new Hand();
-		Game.dealer.hand.add(new Card("Hearts", "6", 6));
-		Game.dealer.hand.add(new Card("Spades", "6", 6));
+		Game.dealer.hand.add(new Card("H", "6", 6));
+		Game.dealer.hand.add(new Card("S", "6", 6));
 		assertEquals("You Win!", Game.winner());
 		
-		// neither have a blackjack, human.getScore() = dealer.getScore()
+		// neither have a blackJ, human.getScore() = dealer.getScore()
 		Game.human.hand = new Hand();
-		Game.human.hand.add(new Card("Hearts", "9", 9));
-		Game.human.hand.add(new Card("Hearts", "5", 5));
+		Game.human.hand.add(new Card("H", "9", 9));
+		Game.human.hand.add(new Card("H", "5", 5));
 		Game.dealer.hand = new Hand();
-		Game.dealer.hand.add(new Card("Hearts", "7", 7));
-		Game.dealer.hand.add(new Card("Spades", "7", 7));
+		Game.dealer.hand.add(new Card("H", "7", 7));
+		Game.dealer.hand.add(new Card("S", "7", 7));
 		assertEquals("The Dealer Wins!", Game.winner());
 		
-		// neither have a blackjack, human.getScore() < dealer.getScore()
+		// neither have a blackJ, human.getScore() < dealer.getScore()
 		Game.human.hand = new Hand();
-		Game.human.hand.add(new Card("Hearts", "9", 9));
-		Game.human.hand.add(new Card("Hearts", "5", 5));
+		Game.human.hand.add(new Card("H", "9", 9));
+		Game.human.hand.add(new Card("H", "5", 5));
 		Game.dealer.hand = new Hand();
-		Game.dealer.hand.add(new Card("Hearts", "9", 9));
-		Game.dealer.hand.add(new Card("Spades", "7", 7));
+		Game.dealer.hand.add(new Card("H", "9", 9));
+		Game.dealer.hand.add(new Card("S", "7", 7));
 		assertEquals("The Dealer Wins!", Game.winner());
 		
-		// human has a blackjack
+		// human has a blackJ
 		Game.human.hand = new Hand();
-		Game.human.hand.add(new Card("Hearts", "King", 10));
-		Game.human.hand.add(new Card("Hearts", "Ace", 0));
+		Game.human.hand.add(new Card("H", "K", 10));
+		Game.human.hand.add(new Card("H", "A", 0));
 		Game.dealer.hand = new Hand();
-		Game.dealer.hand.add(new Card("Hearts", "6", 6));
-		Game.dealer.hand.add(new Card("Spades", "8", 8));
+		Game.dealer.hand.add(new Card("H", "6", 6));
+		Game.dealer.hand.add(new Card("S", "8", 8));
 		assertEquals("You Win!", Game.winner());
 		
-		// dealer has a blackjack
+		// dealer has a blackJ
 		Game.human.hand = new Hand();
-		Game.human.hand.add(new Card("Hearts", "9", 9));
-		Game.human.hand.add(new Card("Hearts", "5", 5));
+		Game.human.hand.add(new Card("H", "9", 9));
+		Game.human.hand.add(new Card("H", "5", 5));
 		Game.dealer.hand = new Hand();
-		Game.dealer.hand.add(new Card("Hearts", "Ace", 0));
-		Game.dealer.hand.add(new Card("Spades", "10", 10));
+		Game.dealer.hand.add(new Card("H", "A", 0));
+		Game.dealer.hand.add(new Card("S", "10", 10));
 		assertEquals("The Dealer Wins!", Game.winner());
 		
-		// both have blackjack
+		// both have blackJ
 		Game.human.hand = new Hand();
-		Game.human.hand.add(new Card("Hearts", "Ace", 0));
-		Game.human.hand.add(new Card("Hearts", "10", 10));
+		Game.human.hand.add(new Card("H", "A", 0));
+		Game.human.hand.add(new Card("H", "10", 10));
 		Game.dealer.hand = new Hand();
-		Game.dealer.hand.add(new Card("Hearts", "Jack", 10));
-		Game.dealer.hand.add(new Card("Spades", "Ace", 0));
+		Game.dealer.hand.add(new Card("H", "J", 10));
+		Game.dealer.hand.add(new Card("S", "A", 0));
 		assertEquals("The Dealer Wins!", Game.winner());
 	}
 }

@@ -3,7 +3,7 @@ package core;
 import java.util.*;
 
 public class Deck {	
-	public static String[] suits = {"Clubs", "Diamonds", "Hearts", "Spades"};
+	public static String[] suits = {"C", "D", "H", "S"};
 	public static Map<String, Integer> ranks = new HashMap<String, Integer>();
 	
 	public List<Card> cards = new ArrayList<Card>();
@@ -30,7 +30,7 @@ public class Deck {
 	
 	
 	private void populateRanks() {
-		ranks.put("Ace", 0);
+		ranks.put("A", 0);
 		ranks.put("2", 2);
 		ranks.put("3", 3);
 		ranks.put("4", 4);
@@ -40,8 +40,8 @@ public class Deck {
 		ranks.put("8", 8);
 		ranks.put("9", 9);
 		ranks.put("10", 10);
-		ranks.put("Jack", 10);
-		ranks.put("Queen", 10);
-		ranks.put("King", 10);
+		ranks.put("J", 10);
+		ranks.put("Q", 10);
+		ranks.put("K", 10);
 	}
 }
