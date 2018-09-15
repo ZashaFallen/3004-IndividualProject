@@ -52,7 +52,7 @@ public class DealerPlayer extends Player {
 		System.out.println(this.showHand(false));
 		
 		while(checkHit()) {
-			System.out.println("The dealer hits: " + hit(deck).toString());
+			System.out.println("The dealer hits: " + hand.hit(deck).toString());
 		}
 		if (getHandState() == PlayerState.busted) {
 			System.out.println("The dealer busts!.");

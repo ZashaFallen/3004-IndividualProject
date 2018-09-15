@@ -25,13 +25,6 @@ public class Player {
 		currentHand = hand;
 	}
 	
-	public Card hit(Deck deck) {
-		Card newCard = deck.draw();
-		hand.add(newCard);
-		
-		return newCard;
-	}
-	
 	public int getHandScore() {
 		return hand.getScore();
 	}
@@ -57,7 +50,13 @@ public class Player {
 		// implemented in 'HumanPlayer' and 'DealerPlayer'
 	}
 	
-	protected void split() {
+	protected void split(Deck deck) {
+		split = true;
 		
+		splitHand = new Hand();
+		splitHand.add(hand.cards.remove(1));
+		
+		hand.hit(deck);
+		splitHand.hit(deck);
 	}
 }

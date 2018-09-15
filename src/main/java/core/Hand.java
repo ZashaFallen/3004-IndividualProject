@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Hand {
-	public List<Card> cards = new ArrayList<Card>();
+	protected List<Card> cards = new ArrayList<Card>();
 	
 	public void add(Card card) {
 		cards.add(card);
@@ -71,5 +71,12 @@ public class Hand {
 		}
 		
 		return check;
+	}
+	
+	public Card hit(Deck deck) {
+		Card newCard = deck.draw();
+		this.add(newCard);
+		
+		return newCard;
 	}
 }

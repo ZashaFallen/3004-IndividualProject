@@ -10,7 +10,11 @@ public class HumanPlayer extends Player {
 	
 	@Override
 	public String showHand() {
-		return "Your Hand: " + hand.getCards();
+		String handString = "Your Hand: " + hand.getCards();
+		if (splitHand != null) {
+			handString += "\r\nYour Second Hand: " + splitHand.getCards();
+		}
+		return handString;
 	}
 	
 	@Override
@@ -23,7 +27,7 @@ public class HumanPlayer extends Player {
 			response = Game.validateInput(s.nextLine());
 			
 			if (response.equals("H")) {
-				System.out.println("You hit: " + hit(deck).toString());
+				System.out.println("You hit: " + hand.hit(deck).toString());
 				System.out.println("Current score: " + getHandScore());
 				
 				if (getHandState() == PlayerState.busted) {

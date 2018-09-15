@@ -25,7 +25,7 @@ public class PlayerClassTests extends TestCase {
 			handCopy.add(card);
 		}
 		
-		handCopy.add(player.hit(deck));
+		handCopy.add(player.hand.hit(deck));
 		
 		assertEquals(handCopy.getScore(), player.getHandScore());
 	}
@@ -127,9 +127,9 @@ public class PlayerClassTests extends TestCase {
 		player.hand.add(new Card("C", "8", 8));
 		player.hand.add(new Card("D", "8", 8));
 		
-		player.split();
+		player.split(deck);
 		assertEquals(true, player.split);
-		assertEquals(player.splitHand, player.currentHand);
+		assertNotSame(player.hand, player.splitHand);
 		assertEquals(2, player.hand.cards.size());
 		assertEquals(2, player.splitHand.cards.size());
 		assertEquals("C8", player.hand.cards.get(0).toString());
