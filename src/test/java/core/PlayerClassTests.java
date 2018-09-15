@@ -62,6 +62,7 @@ public class PlayerClassTests extends TestCase {
 	public void testDealerPlayerHit() {
 		Deck deck = new Deck();
 		DealerPlayer dealer = new DealerPlayer(deck);
+		Game.human = new HumanPlayer(deck);
 		
 		// if dealer.getHandScore() <= 16, hit
 		dealer.hand = new Hand();
@@ -90,26 +91,28 @@ public class PlayerClassTests extends TestCase {
 	}
 	
 	@Test
+	public void testDealerPlayerTurn() {
+		Deck deck = new Deck();
+		deck.shuffle();
+		DealerPlayer dealer = new DealerPlayer(deck);
+		Game.human = new HumanPlayer(deck);
+		
+		System.out.println("Full hand for test: " + dealer.showHand(true));
+		dealer.takeTurn(deck);
+		
+		assertThat(dealer.getHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
+	}
+	
+	@Test
 	public void testHumanPlayerTurn() {
 		Deck deck = new Deck();
 		deck.shuffle();
 		HumanPlayer human = new HumanPlayer(deck);
 		
-		human.showHand();
+		System.out.print(System.lineSeparator());
+		System.out.print(human.showHand());
 		human.takeTurn(deck);
 		
 		assertThat(human.getHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
-	}
-	
-	@Test
-	public void testDealerPlayerTurn() {
-		Deck deck = new Deck();
-		deck.shuffle();
-		DealerPlayer dealer = new DealerPlayer(deck);
-		
-		dealer.showHand(true);
-		dealer.takeTurn(deck);
-		
-		assertThat(dealer.getHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
 	}
 }
