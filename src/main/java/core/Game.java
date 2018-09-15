@@ -15,9 +15,10 @@ public class Game {
 	public static GameState gameState = GameState.invalid;
 	public static boolean debug;
 	
+	protected static HumanPlayer human;
+	protected static DealerPlayer dealer;
+	
 	private static Deck deck;
-	private static HumanPlayer human;
-	private static DealerPlayer dealer;
 	private static final String[] validInputs =  {"Q", "C", "F", "H", "S", "CD", "FD"};
 	
 	
@@ -31,6 +32,7 @@ public class Game {
 		
 		if (gameState == GameState.console) {
 			setUpGame();
+			
 			
 		}
 		else if (gameState == GameState.file) {
@@ -49,13 +51,6 @@ public class Game {
 		
 		System.out.println(dealer.showHand());
 		System.out.println(human.showHand());
-		
-		if (dealer.getHandState().equals(Player.PlayerState.blackjack)) {
-			System.out.println("The dealer wins!");
-		}
-		else if (human.getHandState().equals(Player.PlayerState.blackjack)) {
-			System.out.println("You win!");
-		}
 	}
 	
 	
@@ -111,5 +106,15 @@ public class Game {
 		}
 		 
 		return input;
+	}
+	
+	protected static boolean checkBlackjack() {
+		boolean check = false;
+		
+		if (human.getHandState() == Player.PlayerState.blackjack || dealer.getHandState() == Player.PlayerState.blackjack) {
+			check = true;
+		}
+		
+		return check;
 	}
 }

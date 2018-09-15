@@ -55,44 +55,44 @@ public class GameClassTests extends TestCase {
 	@Test
 	public void testCheckBlackjack() {
 		Deck deck = new Deck();
-		HumanPlayer human = new HumanPlayer(deck);
-		DealerPlayer dealer = new DealerPlayer(deck);
+		Game.human = new HumanPlayer(deck);
+		Game.dealer = new DealerPlayer(deck);
 		
 		// neither have a blackjack
-		human.hand = new Hand();
-		human.hand.add(new Card("Hearts", "9", 9));
-		human.hand.add(new Card("Hearts", "5", 5));
-		dealer.hand = new Hand();
-		human.hand.add(new Card("Hearts", "6", 6));
-		human.hand.add(new Card("Spades", "8", 8));
+		Game.human.hand = new Hand();
+		Game.human.hand.add(new Card("Hearts", "9", 9));
+		Game.human.hand.add(new Card("Hearts", "5", 5));
+		Game.dealer.hand = new Hand();
+		Game.dealer.hand.add(new Card("Hearts", "6", 6));
+		Game.dealer.hand.add(new Card("Spades", "8", 8));
 		assertEquals(false, Game.checkBlackjack());
 		
 		
 		// human has a blackjack
-		human.hand = new Hand();
-		human.hand.add(new Card("Hearts", "King", 10));
-		human.hand.add(new Card("Hearts", "Ace", 0));
-		dealer.hand = new Hand();
-		human.hand.add(new Card("Hearts", "6", 6));
-		human.hand.add(new Card("Spades", "8", 8));
+		Game.human.hand = new Hand();
+		Game.human.hand.add(new Card("Hearts", "King", 10));
+		Game.human.hand.add(new Card("Hearts", "Ace", 0));
+		Game.dealer.hand = new Hand();
+		Game.dealer.hand.add(new Card("Hearts", "6", 6));
+		Game.dealer.hand.add(new Card("Spades", "8", 8));
 		assertEquals(true, Game.checkBlackjack());
 		
 		// dealer has a blackjack
-		human.hand = new Hand();
-		human.hand.add(new Card("Hearts", "9", 9));
-		human.hand.add(new Card("Hearts", "5", 5));
-		dealer.hand = new Hand();
-		human.hand.add(new Card("Hearts", "Ace", 0));
-		human.hand.add(new Card("Spades", "10", 10));
+		Game.human.hand = new Hand();
+		Game.human.hand.add(new Card("Hearts", "9", 9));
+		Game.human.hand.add(new Card("Hearts", "5", 5));
+		Game.dealer.hand = new Hand();
+		Game.dealer.hand.add(new Card("Hearts", "Ace", 0));
+		Game.dealer.hand.add(new Card("Spades", "10", 10));
 		assertEquals(true, Game.checkBlackjack());
 		
 		// both have blackjack
-		human.hand = new Hand();
-		human.hand.add(new Card("Hearts", "Ace", 0));
-		human.hand.add(new Card("Hearts", "10", 10));
-		dealer.hand = new Hand();
-		human.hand.add(new Card("Hearts", "Jack", 10));
-		human.hand.add(new Card("Spades", "Ace", 0));
+		Game.human.hand = new Hand();
+		Game.human.hand.add(new Card("Hearts", "Ace", 0));
+		Game.human.hand.add(new Card("Hearts", "10", 10));
+		Game.dealer.hand = new Hand();
+		Game.dealer.hand.add(new Card("Hearts", "Jack", 10));
+		Game.dealer.hand.add(new Card("Spades", "Ace", 0));
 		assertEquals(true, Game.checkBlackjack());
 	}
 	
