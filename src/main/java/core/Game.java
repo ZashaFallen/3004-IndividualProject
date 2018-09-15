@@ -9,7 +9,8 @@ public class Game {
 		console,
 		file,
 		quit,
-		invalid
+		invalid,
+		winner
 	}
 	
 	public static GameState gameState = GameState.invalid;
@@ -33,7 +34,12 @@ public class Game {
 		if (gameState == GameState.console) {
 			setUpGame();
 			
-			
+			if (checkBlackjack()) {
+				System.out.println(winner());
+			}
+			else {
+				
+			}
 		}
 		else if (gameState == GameState.file) {
 			System.out.print("File input is not supported yet.");
@@ -116,5 +122,37 @@ public class Game {
 		}
 		
 		return check;
+	}
+	
+	protected static String winner() {
+		final String win = "You Win!";
+		final String lose = "The Dealer Wins!";
+		String winMessage = "";
+		
+		// The dealer has a blackjack
+		if (dealer.getHandState() == Player.PlayerState.blackjack) {
+			winMessage = lose;
+		}
+		// The human has a blackjack, and the dealer does not
+		else if (human.getHandState() == Player.PlayerState.blackjack) {
+			winMessage = win;
+		}
+		else if (human.getHandState() == Player.PlayerState.safe) {
+			// the dealer busts, and the player is safe
+			// neither player busts, and the human's score is higher
+			if (dealer.getHandState() == Player.PlayerState.busted ||
+				human.getScore() > dealer.getScore()) {
+				winMessage = win;
+			}
+			// the human busts
+			else {
+				winMessage = lose;
+			}
+		}
+		else {
+			winMessage = "Both players bust! This shouldn't happen!";
+		}
+	
+		return winMessage;
 	}
 }
