@@ -46,7 +46,7 @@ public class Hand {
 		return score;
 	}
 	
-	public Player.PlayerState checkState() {
+	public Player.PlayerState getState() {
 		Player.PlayerState state = Player.PlayerState.invalid;
 		int score = this.getScore();
 		

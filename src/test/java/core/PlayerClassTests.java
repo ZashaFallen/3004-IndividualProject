@@ -69,7 +69,7 @@ public class PlayerClassTests extends TestCase {
 		player.hand.add(new Card("H", "A", 0));
 		player.hand.add(new Card("D", "5", 5));
 		player.splitHand = new Hand();
-		player.splitHand.add(new Card("D", "A", 0));
+		player.splitHand.add(new Card("D", "6", 6));
 		player.splitHand.add(new Card("D", "9", 9));
 		player.splitHand.add(new Card("D", "8", 8));
 		assertEquals(Player.PlayerState.safe, player.getBestHandState());
@@ -108,15 +108,91 @@ public class PlayerClassTests extends TestCase {
 		player.hand.add(new Card("D", "5", 5));
 		player.hand.add(new Card("D", "8", 8));
 		player.splitHand = new Hand();
-		player.splitHand.add(new Card("D", "A", 0));
+		player.splitHand.add(new Card("D", "6", 6));
 		player.splitHand.add(new Card("D", "9", 9));
 		player.splitHand.add(new Card("D", "8", 8));
 		assertEquals(Player.PlayerState.busted, player.getBestHandState());
 	}
 	
 	@Test
-	public void testPlayerGetScore() {
+	public void testPlayerGetBestScore() {
+		Deck deck = new Deck();
+		Player player = new Player(deck);
 		
+		// single hand, safe
+		player.hand = new Hand();
+		player.hand.add(new Card("H", "A", 0));
+		player.hand.add(new Card("D", "5", 5));
+		assertEquals(11, player.getBestHandScore());
+		
+		// single hand, busted
+		player.hand.add(new Card("D", "10", 10));
+		player.hand.add(new Card("D", "K", 10));
+		assertEquals(20, player.getBestHandScore());
+		
+		// single hand, blackjack
+		player.hand = new Hand();
+		player.hand.add(new Card("D", "A", 0));
+		player.hand.add(new Card("D", "K", 10));
+		assertEquals(21, player.getBestHandScore());
+		
+		// split hand, both safe
+		player.hand = new Hand();
+		player.hand.add(new Card("H", "A", 0));
+		player.hand.add(new Card("D", "5", 5));
+		player.splitHand = new Hand();
+		player.splitHand.add(new Card("D", "A", 0));
+		player.splitHand.add(new Card("D", "9", 9));
+		assertEquals(20, player.getBestHandScore());
+		
+		// split hand, split hand busted
+		player.hand = new Hand();
+		player.hand.add(new Card("H", "A", 0));
+		player.hand.add(new Card("D", "5", 5));
+		player.splitHand = new Hand();
+		player.splitHand.add(new Card("D", "6", 6));
+		player.splitHand.add(new Card("D", "9", 9));
+		player.splitHand.add(new Card("D", "8", 8));
+		assertEquals(16, player.getBestHandScore());
+		
+		// split hand, first hand busted
+		player.hand = new Hand();
+		player.hand.add(new Card("H", "9", 9));
+		player.hand.add(new Card("D", "5", 5));
+		player.hand.add(new Card("D", "8", 8));
+		player.splitHand = new Hand();
+		player.splitHand.add(new Card("D", "A", 0));
+		player.splitHand.add(new Card("D", "9", 9));
+		assertEquals(20, player.getBestHandScore());
+		
+		// split hand, split hand blackjack
+		player.hand = new Hand();
+		player.hand.add(new Card("H", "A", 0));
+		player.hand.add(new Card("D", "5", 5));
+		player.splitHand = new Hand();
+		player.splitHand.add(new Card("D", "A", 0));
+		player.splitHand.add(new Card("D", "K", 10));
+		assertEquals(21, player.getBestHandScore());
+		
+		// split hand, first hand blackjack
+		player.hand = new Hand();
+		player.hand.add(new Card("H", "A", 0));
+		player.hand.add(new Card("D", "Q", 10));
+		player.splitHand = new Hand();
+		player.splitHand.add(new Card("D", "A", 0));
+		player.splitHand.add(new Card("D", "5", 5));
+		assertEquals(21, player.getBestHandScore());
+		
+		// split hand, both hands busted
+		player.hand = new Hand();
+		player.hand.add(new Card("H", "9", 9));
+		player.hand.add(new Card("D", "5", 5));
+		player.hand.add(new Card("D", "8", 8));
+		player.splitHand = new Hand();
+		player.splitHand.add(new Card("D", "6", 6));
+		player.splitHand.add(new Card("D", "9", 9));
+		player.splitHand.add(new Card("D", "8", 8));
+		assertEquals(0, player.getBestHandScore());
 	}
 	
 	@Test

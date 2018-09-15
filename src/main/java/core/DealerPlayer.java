@@ -61,7 +61,7 @@ public class DealerPlayer extends Player {
 		while(checkHit(hand)) {
 			System.out.println("The dealer hits: " + hand.hit(deck).toString());
 		}
-		if (hand.checkState() == PlayerState.busted) {
+		if (hand.getState() == PlayerState.busted) {
 			System.out.println("The dealer busts!");
 		}
 		else {
@@ -72,7 +72,7 @@ public class DealerPlayer extends Player {
 			while(checkHit(splitHand)) {
 				System.out.println("The dealer hits: " + splitHand.hit(deck).toString());
 			}
-			if (splitHand.checkState() == PlayerState.busted) {
+			if (splitHand.getState() == PlayerState.busted) {
 				System.out.println("The dealer busts on their second hand!");
 			}
 			else {

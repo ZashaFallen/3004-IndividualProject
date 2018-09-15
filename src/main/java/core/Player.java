@@ -35,7 +35,24 @@ public class Player {
 	}
 	
 	public PlayerState getBestHandState() {		
-		// To be implemented
+		PlayerState bestState = PlayerState.invalid;
+		
+		if (splitHand == null) {
+			bestState = hand.getState();
+		}
+		else {
+			if (hand.getState() == PlayerState.blackjack ||
+				splitHand.getState() == PlayerState.blackjack) {
+				bestState = PlayerState.blackjack;
+			}
+			else if (hand.getState() == PlayerState.safe ||
+					splitHand.getState() == PlayerState.safe) {
+					bestState = PlayerState.safe;
+			}
+			else bestState = PlayerState.busted;
+		}
+		
+		return bestState;
 	}
 	
 	public void takeTurn(Deck deck) {
