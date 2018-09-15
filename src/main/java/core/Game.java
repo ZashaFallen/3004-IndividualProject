@@ -39,7 +39,7 @@ public class Game {
 			}
 			else {
 				human.takeTurn(deck);
-				if (human.getHandState() != Player.PlayerState.busted) {
+				if (human.getBestHandState() != Player.PlayerState.busted) {
 					dealer.takeTurn(deck);
 				}
 				
@@ -123,11 +123,11 @@ public class Game {
 	protected static boolean checkInitialBlackjack() {
 		boolean check = false;
 		
-		if (dealer.getHandState() == Player.PlayerState.blackjack) {
+		if (dealer.getBestHandState() == Player.PlayerState.blackjack) {
 			check = true;
 			dealer.initialBlackjack = true;
 		}
-		if (human.getHandState() == Player.PlayerState.blackjack) {
+		if (human.getBestHandState() == Player.PlayerState.blackjack) {
 			check = true;
 			human.initialBlackjack = true;
 		}
@@ -137,8 +137,8 @@ public class Game {
 	
 	protected static void displayBothHands() {
 		System.out.println(System.lineSeparator());
-		System.out.println(dealer.showHand(true) + " Total Score: " + dealer.getHandScore());
-		System.out.println(human.showHand() + " Total Score: " + human.getHandScore());
+		System.out.println(dealer.showHand(true) + " Final Score: " + dealer.getBestHandScore());
+		System.out.println(human.showHand() + " Final Score: " + human.getBestHandScore());
 	}
 	
 	protected static String winner() {
@@ -156,22 +156,22 @@ public class Game {
 		}
 		else {
 			// The dealer has a blackjack
-			if (dealer.getHandState() == Player.PlayerState.blackjack) {
+			if (dealer.getBestHandState() == Player.PlayerState.blackjack) {
 				winMessage = lose;
 			}
 			// The human has a blackjack, and the dealer does not
-			else if (human.getHandState() == Player.PlayerState.blackjack) {
+			else if (human.getBestHandState() == Player.PlayerState.blackjack) {
 				winMessage = win;
 			}
-			else if (human.getHandState() == Player.PlayerState.busted &&
-					dealer.getHandState() == Player.PlayerState.safe) {
+			else if (human.getBestHandState() == Player.PlayerState.busted &&
+					dealer.getBestHandState() == Player.PlayerState.safe) {
 				winMessage = lose;
 			}
-			else if (human.getHandState() == Player.PlayerState.safe) {
+			else if (human.getBestHandState() == Player.PlayerState.safe) {
 				// the dealer busts, and the player is safe
 				// neither player busts, and the human's score is higher
-				if (dealer.getHandState() == Player.PlayerState.busted ||
-					human.getHandScore() > dealer.getHandScore()) {
+				if (dealer.getBestHandState() == Player.PlayerState.busted ||
+					human.getBestHandScore() > dealer.getBestHandScore()) {
 					winMessage = win;
 				}
 				// the human busts

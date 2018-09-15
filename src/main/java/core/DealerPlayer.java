@@ -21,6 +21,10 @@ public class DealerPlayer extends Player {
 			}
 		}
 		
+		if (splitHand != null) {
+			dealerHand += "\r\nDealer's Second Hand: " + splitHand.getCards();
+		}
+		
 		return dealerHand;
 	}
 	
@@ -28,7 +32,7 @@ public class DealerPlayer extends Player {
 		boolean check = false;
 		int score = handToCheck.getScore();
 		
-		if (Game.human.getHandState() == PlayerState.busted) {
+		if (Game.human.getBestHandState() == PlayerState.busted) {
 			check = false;
 		}
 		else if (score <= 16) {
@@ -54,15 +58,26 @@ public class DealerPlayer extends Player {
 		if (hand.canSplit() && hand.getScore() <= 17) {
 			split(deck);
 		}
-		
 		while(checkHit(hand)) {
 			System.out.println("The dealer hits: " + hand.hit(deck).toString());
 		}
-		if (getHandState() == PlayerState.busted) {
-			System.out.println("The dealer busts!.");
+		if (hand.checkState() == PlayerState.busted) {
+			System.out.println("The dealer busts!");
 		}
 		else {
 			System.out.println("The dealer stays.");
+		}
+		
+		if (split) {
+			while(checkHit(splitHand)) {
+				System.out.println("The dealer hits: " + splitHand.hit(deck).toString());
+			}
+			if (splitHand.checkState() == PlayerState.busted) {
+				System.out.println("The dealer busts on their second hand!");
+			}
+			else {
+				System.out.println("The dealer stays on their second hand.");
+			}
 		}
 		
 		System.out.println(this.showHand(true));

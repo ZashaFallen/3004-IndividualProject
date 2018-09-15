@@ -25,12 +25,8 @@ public class Player {
 		currentHand = hand;
 	}
 	
-	public int getHandScore() {
-		return hand.getScore();
-	}
-	
-	public int getSplitHandScore() {
-		return splitHand.getScore();
+	public int getBestHandScore() {
+		// To be implemented
 	}
 	
 	public String showHand() {
@@ -38,12 +34,8 @@ public class Player {
 		return null;
 	}
 	
-	public PlayerState getHandState() {		
-		return hand.checkState();
-	}
-	
-	public PlayerState getSplitHandState() {	
-		return splitHand.checkState();
+	public PlayerState getBestHandState() {		
+		// To be implemented
 	}
 	
 	public void takeTurn(Deck deck) {

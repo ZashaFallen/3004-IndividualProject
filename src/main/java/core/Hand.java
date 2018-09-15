@@ -81,6 +81,12 @@ public class Hand {
 	}
 	
 	public boolean canSplit() {
-
+		boolean check = false;
+		
+		if (cards.size() == 2 && cards.get(0).getRank().equals(cards.get(1).getRank())) {
+			check = true;
+		}
+		
+		return check;
 	}
 }

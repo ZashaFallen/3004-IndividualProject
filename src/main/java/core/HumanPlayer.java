@@ -22,15 +22,15 @@ public class HumanPlayer extends Player {
 		Scanner s = new Scanner(System.in);
 		String response = "";
 		
-		while (!response.equals("S") && getHandState() != PlayerState.busted) {
+		while (!response.equals("S") && getBestHandState() != PlayerState.busted) {
 			System.out.print("\r\nWould you like to (h)it or (s)tay?: ");
 			response = Game.validateInput(s.nextLine());
 			
 			if (response.equals("H")) {
 				System.out.println("You hit: " + hand.hit(deck).toString());
-				System.out.println("Current score: " + getHandScore());
+				System.out.println("Current score: " + getBestHandScore());
 				
-				if (getHandState() == PlayerState.busted) {
+				if (getBestHandState() == PlayerState.busted) {
 					System.out.println("\r\nYou bust!");
 				}
 			}

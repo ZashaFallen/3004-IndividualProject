@@ -17,4 +17,9 @@ public class Card {
 	public String toString() {
 		return suit + rank;
 	}
+
+
+	public String getRank() {
+		return rank;
+	}
 }
