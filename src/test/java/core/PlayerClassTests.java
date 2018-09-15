@@ -123,12 +123,12 @@ public class PlayerClassTests extends TestCase {
 		player.hand = new Hand();
 		player.hand.add(new Card("H", "A", 0));
 		player.hand.add(new Card("D", "5", 5));
-		assertEquals(11, player.getBestHandScore());
+		assertEquals(16, player.getBestHandScore());
 		
 		// single hand, busted
 		player.hand.add(new Card("D", "10", 10));
 		player.hand.add(new Card("D", "K", 10));
-		assertEquals(20, player.getBestHandScore());
+		assertEquals(0, player.getBestHandScore());
 		
 		// single hand, blackjack
 		player.hand = new Hand();

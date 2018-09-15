@@ -14,7 +14,7 @@ public class Player {
 	public boolean initialBlackjack = false;
 	
 	protected boolean split;
-	protected Hand currentHand;
+	//protected Hand currentHand;
 	
 	public Player(Deck deck) {
 		hand = new Hand();
@@ -22,11 +22,24 @@ public class Player {
 		hand.add(deck.draw());
 		hand.add(deck.draw());
 		
-		currentHand = hand;
+		//currentHand = hand;
 	}
 	
 	public int getBestHandScore() {
-		// To be implemented
+		int bestScore = 0;
+		
+		if (hand.getScore() <= 21) {
+			bestScore = hand.getScore();
+		}
+		if (splitHand != null) {
+			if (bestScore <= splitHand.getScore() && (
+				splitHand.getState() == PlayerState.safe ||
+				splitHand.getState() == PlayerState.blackjack)) {
+				bestScore = splitHand.getScore();
+			}
+		}
+		
+		return bestScore;
 	}
 	
 	public String showHand() {
