@@ -2,6 +2,13 @@ package core;
 
 
 public class Player {
+	enum PlayerState {
+		safe,
+		blackjack,
+		busted,
+		invalid
+	}
+	
 	public Hand hand;
 	
 	public Player(Deck deck) {
@@ -27,7 +34,7 @@ public class Player {
 		return null;
 	}
 	
-	public String getHandState() {		
+	public PlayerState getHandState() {		
 		return hand.checkHandState();
 	}
 }

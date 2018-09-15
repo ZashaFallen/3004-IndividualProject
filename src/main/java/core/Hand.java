@@ -7,10 +7,6 @@ import java.util.stream.Collectors;
 public class Hand {
 	public List<Card> cards = new ArrayList<Card>();
 	
-	private final String HAND_SAFE = "SAFE";
-	private final String HAND_BLACKJACK = "BLACKJACK";
-	private final String HAND_BUSTED = "BUSTED";
-	
 	public void add(Card card) {
 		cards.add(card);
 	}
@@ -50,18 +46,18 @@ public class Hand {
 		return score;
 	}
 	
-	public String checkHandState() {
-		String state = "";
+	public Player.PlayerState checkHandState() {
+		Player.PlayerState state = Player.PlayerState.invalid;
 		int score = this.getScore();
 		
 		if (score < 21) {
-			state = HAND_SAFE;
+			state = Player.PlayerState.safe;
 		}
 		else if (score == 21) {
-			state = HAND_BLACKJACK;
+			state = Player.PlayerState.blackjack;
 		}
 		else if (score > 21) {
-			state = HAND_BUSTED;
+			state = Player.PlayerState.busted;
 		}
 		
 		return state;

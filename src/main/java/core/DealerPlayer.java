@@ -7,11 +7,18 @@ public class DealerPlayer extends Player {
 	}
 	
 	public String showHand() {
-		final String hiddenCard = "[FACE DOWN]";
-		String dealerHand = "Dealer's Hand: " + hand.getFirstCard();
+		String dealerHand = "Dealer's Hand: ";
 		
-		for (int i = 1; i < hand.cards.size(); i++) {
-			dealerHand = dealerHand + ", " + hiddenCard;
+		if (Game.debug) {
+			dealerHand += hand.getCards();
+		}
+		else {
+			final String hiddenCard = "[FACE DOWN]";
+			dealerHand += hand.getFirstCard();
+			
+			for (int i = 1; i < hand.cards.size(); i++) {
+				dealerHand = dealerHand + ", " + hiddenCard;
+			}
 		}
 		
 		return dealerHand;
