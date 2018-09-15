@@ -92,7 +92,7 @@ public class HandClassTests extends TestCase{
 	}
 	
 	@Test
-	public void testHandGetState() {
+	public void testGetState() {
 		Hand hand = new Hand();
 		
 		hand.add(new Card("Spades", "King", 10));
@@ -104,6 +104,19 @@ public class HandClassTests extends TestCase{
 		
 		hand.add(new Card("Hearts", "5", 5));
 		assertEquals("BUSTED", hand.checkHandState());
+	}
+	
+	@Test
+	public void testContainsAce() {
+		Hand hand = new Hand();
+		
+		assertEquals(false, hand.containsAce());
+		
+		hand.add(new Card("Spades", "King", 10));
+		assertEquals(false, hand.containsAce());
+		
+		hand.add(new Card("Clubs", "Ace", 0));
+		assertEquals(true, hand.containsAce());
 	}
 	
 }
