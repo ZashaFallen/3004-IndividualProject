@@ -97,13 +97,13 @@ public class HandClassTests extends TestCase{
 		
 		hand.add(new Card("Spades", "King", 10));
 		hand.add(new Card("Spades", "8", 8));
-		assertEquals(Player.PlayerState.safe, hand.checkHandState());
+		assertEquals(Player.PlayerState.safe, hand.checkState());
 		
 		hand.add(new Card("Hearts", "3", 3));
-		assertEquals(Player.PlayerState.blackjack, hand.checkHandState());
+		assertEquals(Player.PlayerState.blackjack, hand.checkState());
 		
 		hand.add(new Card("Hearts", "5", 5));
-		assertEquals(Player.PlayerState.busted, hand.checkHandState());
+		assertEquals(Player.PlayerState.busted, hand.checkState());
 	}
 	
 	@Test

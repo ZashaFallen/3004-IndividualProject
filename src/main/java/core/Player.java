@@ -35,6 +35,6 @@ public class Player {
 	}
 	
 	public PlayerState getHandState() {		
-		return hand.checkHandState();
+		return hand.checkState();
 	}
 }
