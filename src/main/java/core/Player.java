@@ -42,7 +42,7 @@ public class Player {
 		return bestScore;
 	}
 	
-	public String showHand() {
+	public String getHand() {
 		// implemented in 'HumanPlayer' and 'DealerPlayer'
 		return null;
 	}

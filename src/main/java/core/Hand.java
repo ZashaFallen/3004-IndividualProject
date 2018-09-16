@@ -52,7 +52,7 @@ public class Hand {
 		Player.PlayerState state = Player.PlayerState.invalid;
 		int score = this.getScore();
 		
-		if (score == 21 && cards.size() == 2) {
+		if (score == 21 && cards.size() == 2 && !alreadyHit) {
 			state = Player.PlayerState.blackjack;
 		}
 		else if (score <= 21) {

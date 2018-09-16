@@ -29,13 +29,10 @@ public class ConsoleIOClassTests extends TestCase {
 		
 		assertEquals("S", ConsoleIO.validateInput("S"));
 		assertEquals("S", ConsoleIO.validateInput("s"));
-	}
-	
-	@Test
-	public void testValidateInputInvalidString() {
-		assertEquals(null, ConsoleIO.validateInput("invalid"));
-		assertEquals(null, ConsoleIO.validateInput(2));
-		assertEquals(null, ConsoleIO.validateInput(2.4));
-		assertEquals(null, ConsoleIO.validateInput(""));
+		
+		assertEquals("", ConsoleIO.validateInput("invalid"));
+		assertEquals("", ConsoleIO.validateInput(2));
+		assertEquals("", ConsoleIO.validateInput(2.4));
+		assertEquals("", ConsoleIO.validateInput(""));
 	}
 }

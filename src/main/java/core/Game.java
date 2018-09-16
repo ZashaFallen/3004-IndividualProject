@@ -22,7 +22,7 @@ public class Game {
 		ConsoleIO.init();
 		
 		while (gameState == GameState.invalid) {
-			gameState = getGameState(ConsoleIO.input("Would you like to use (c)console or (f)file input?: "));
+			setGameState(ConsoleIO.input("Would you like to use (c)console or (f)file input?: "));
 		}
 		
 		if (gameState == GameState.console) {
@@ -34,10 +34,25 @@ public class Game {
 					dealer.takeTurn(deck);
 				}
 			}
-			System.out.println(winner());
+
+			
+			displayBothHands();
+			if (getWinner()) {
+				if (checkInitialBlackjack()) {
+					ConsoleIO.output("You got an initial blackjack, and the dealer didn't!");
+				}
+				ConsoleIO.output("You won!");
+			}
+			else {
+				if (checkInitialBlackjack()) {
+					ConsoleIO.output("The dealer got an initial blackjack!");
+				}
+				ConsoleIO.output("You lost!");
+			}
+			
 		}
 		else if (gameState == GameState.file) {
-			System.out.print("File input is not supported yet.");
+			ConsoleIO.output("File input is not supported yet.");
 		}
 		
 		ConsoleIO.close();
@@ -51,8 +66,8 @@ public class Game {
 		dealer = new DealerPlayer(deck);
 		
 		System.out.print(System.lineSeparator());
-		System.out.println(dealer.showHand(false));
-		System.out.println(human.showHand());
+		System.out.println(dealer.getHand(false));
+		System.out.println(human.getHand());
 	}
 	
 	
@@ -65,25 +80,29 @@ public class Game {
 	 * Output:  No return value. Modifies 'Game.gameState'.
 	 * Created:	12/09/2018
 	 **************/
-	protected static GameState getGameState(String validatedInput) {
-		GameState state = GameState.invalid;
+	protected static void setGameState(String validatedInput) {		
 		
-		if (validatedInput == null) {
-			System.out.println("Invalid input. Please enter 'C' for console input, 'F' for file input, or 'Q' to quit.\r\n");
+		if (validatedInput.equals("C")) {
+			gameState = GameState.console;
 		}
-		else if (validatedInput.equals("C")) state = GameState.console;
-		else if (validatedInput.equals("F")) state = GameState.file;
-		else if (validatedInput.equals("Q")) state = GameState.quit;
+		else if (validatedInput.equals("F")) {
+			gameState = GameState.file;
+		}
+		else if (validatedInput.equals("Q")) {
+			gameState = GameState.quit;
+		}
 		else if (validatedInput.equals("CD")) {
-			state = GameState.console;
+			gameState = GameState.console;
 			debug = true;
 		}
 		else if (validatedInput.equals("FD")) {
-			state = GameState.file;
+			gameState = GameState.file;
 			debug = true;
 		}
-		
-		return state;
+		else {
+			ConsoleIO.output("Invalid input. Please enter 'C' for console input, 'F' for file input, or 'Q' to quit.\r\n");
+			gameState = GameState.invalid;
+		}
 	}
 	
 	
@@ -104,55 +123,29 @@ public class Game {
 	
 	
 	protected static void displayBothHands() {
-		System.out.println(System.lineSeparator());
-		System.out.println(dealer.showHand(true) + " Final Score: " + dealer.getBestHandScore());
-		System.out.println(human.showHand() + " Final Score: " + human.getBestHandScore());
+		ConsoleIO.output(System.lineSeparator());
+		ConsoleIO.output(dealer.getHand(true) + " Final Score: " + dealer.getBestHandScore() + System.lineSeparator());
+		ConsoleIO.output(human.getHand() + " Final Score: " + human.getBestHandScore() + System.lineSeparator());
 	}
 	
 	
-	protected static String winner() {
-		final String win = "You Win!";
-		final String lose = "The Dealer Wins!";
-		String winMessage;
+	protected static boolean getWinner() {
+		boolean humanWon = false;
 		
-		displayBothHands();
+		checkInitialBlackjack();
 		
-		if (dealer.initialBlackjack) {
-			winMessage = "The dealer gets an initial blackjack and automatically wins!";
+		// the player has an initial blackjack and the dealer doesn't
+		if (!dealer.initialBlackjack && human.initialBlackjack) {
+			humanWon = true;
 		}
-		else if (human.initialBlackjack) {
-			winMessage = "You get an initial blackjack and win!";
-		}
-		else {
-			// The dealer has a blackjack
-			if (dealer.getBestHandState() == Player.PlayerState.blackjack) {
-				winMessage = lose;
-			}
-			// The human has a blackjack, and the dealer does not
-			else if (human.getBestHandState() == Player.PlayerState.blackjack) {
-				winMessage = win;
-			}
-			else if (human.getBestHandState() == Player.PlayerState.busted &&
-					dealer.getBestHandState() == Player.PlayerState.safe) {
-				winMessage = lose;
-			}
-			else if (human.getBestHandState() == Player.PlayerState.safe) {
-				// the dealer busts, and the player is safe
-				// neither player busts, and the human's score is higher
-				if (dealer.getBestHandState() == Player.PlayerState.busted ||
-					human.getBestHandScore() > dealer.getBestHandScore()) {
-					winMessage = win;
-				}
-				// the human busts
-				else {
-					winMessage = lose;
-				}
-			}
-			else {
-				winMessage = "Both players bust! This shouldn't happen!";
-			}
+		// the dealer busts, and the player is safe
+		// neither player busts, and the human's score is higher
+		else if (human.getBestHandState() == Player.PlayerState.safe && (
+				dealer.getBestHandState() == Player.PlayerState.busted ||
+				human.getBestHandScore() > dealer.getBestHandScore())) {
+			humanWon = true;
 		}
 	
-		return winMessage;
+		return humanWon;
 	}
 }

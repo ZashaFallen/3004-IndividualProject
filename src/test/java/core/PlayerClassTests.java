@@ -214,11 +214,11 @@ public class PlayerClassTests extends TestCase {
 		
 		dealer.hand = new Hand();
 		dealer.hand.add(new Card("C", "8", 8));
-		assertEquals("Dealer's Hand: C8", dealer.showHand(false));
+		assertEquals("Dealer's Hand: C8", dealer.getHand(false));
 		
 		dealer.hand.add(new Card("H", "A", 0));
 		dealer.hand.add(new Card("D", "5", 5));
-		assertEquals("Dealer's Hand: C8, HA, D5", dealer.showHand(true));
+		assertEquals("Dealer's Hand: C8, HA, D5", dealer.getHand(true));
 	}
 	
 	@Test
@@ -228,11 +228,11 @@ public class PlayerClassTests extends TestCase {
 		
 		human.hand = new Hand();
 		human.hand.add(new Card("C", "8", 8));
-		assertEquals("Your Hand: C8", human.showHand());
+		assertEquals("Your Hand: C8", human.getHand());
 		
 		human.hand.add(new Card("H", "A", 0));
 		human.hand.add(new Card("D", "5", 5));
-		assertEquals("Your Hand: C8, HA, D5", human.showHand());
+		assertEquals("Your Hand: C8, HA, D5", human.getHand());
 	}
 	
 	@Test
@@ -274,7 +274,8 @@ public class PlayerClassTests extends TestCase {
 		DealerPlayer dealer = new DealerPlayer(deck);
 		Game.human = new HumanPlayer(deck);
 		
-		System.out.println("Full hand for test: " + dealer.showHand(true));
+		ConsoleIO.outputln(System.lineSeparator());
+		ConsoleIO.outputln("Full hand for dealer platey turn test: " + dealer.getHand(true));
 		dealer.takeTurn(deck);
 		
 		assertThat(dealer.getBestHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
@@ -308,8 +309,8 @@ public class PlayerClassTests extends TestCase {
 		deck.shuffle();
 		HumanPlayer human = new HumanPlayer(deck);
 		
-		System.out.print(System.lineSeparator());
-		System.out.print(human.showHand());
+		ConsoleIO.outputln(System.lineSeparator());
+		ConsoleIO.outputln(human.getHand());
 		human.takeTurn(deck);
 		
 		assertThat(human.getBestHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
@@ -319,8 +320,6 @@ public class PlayerClassTests extends TestCase {
 	public void testHumanPlayerSplitTurn() {
 		Deck deck = new Deck();
 		HumanPlayer human;
-		System.out.print(System.lineSeparator());
-		System.out.print(System.lineSeparator());
 		
 		deck.cards = new ArrayList<Card>();
 		deck.cards.add(new Card("C", "8", 8)); // human's first card
@@ -331,7 +330,8 @@ public class PlayerClassTests extends TestCase {
 		deck.cards.add(new Card("C", "10", 10));
 		deck.cards.add(new Card("H", "7", 7));
 		
-		System.out.print(human.showHand());
+		ConsoleIO.outputln(System.lineSeparator());
+		ConsoleIO.outputln(human.getHand());
 		human.takeTurn(deck);
 		
 		assertEquals(true, human.split);

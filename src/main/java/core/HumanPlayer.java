@@ -7,7 +7,7 @@ public class HumanPlayer extends Player {
 	}
 	
 	@Override
-	public String showHand() {
+	public String getHand() {
 		String handString; 
 		if (splitHand == null) {
 			handString = "Your Hand: " + hand.getCards();
@@ -24,47 +24,51 @@ public class HumanPlayer extends Player {
 		String response = "";
 		String extraHandText = "";
 		
-		while (!response.equals("S") && getBestHandState() != PlayerState.busted) {
-			response = ConsoleIO.input("\r\nWould you like to (h)hit, (s)stay, or (d)split? " + extraHandText + ": ");
+		while (currentHand != null && getBestHandState() != PlayerState.busted) {
+			response = ConsoleIO.input("\r\nWould you like to (h)hit, (s)stay, or (d) split", extraHandText, "? ");
 			
 			if (response.equals("H")) {
-				System.out.println("You hit" + extraHandText + ": " + currentHand.hit(deck).toString());
-				System.out.println("Current score" + extraHandText + ": " + currentHand.getScore());
+				ConsoleIO.outputln("You hit", extraHandText, ": ", currentHand.hit(deck).toString());
+				ConsoleIO.outputln("Current score", extraHandText, ": ", Integer.toString(currentHand.getScore()));
 				
 				if(currentHand.getState() == PlayerState.busted) {
-					System.out.println("\r\nYou bust" + extraHandText + "!");
+					ConsoleIO.outputln("You bust", extraHandText + "!");
 					
 					if (currentHand == hand && split) {
 						currentHand = splitHand;
-						response = "";
 						extraHandText = " on your second hand";
+					}
+					else {
+						currentHand = null;
 					}
 				}
 			}
 			else if (response.equals("S")) {
-				System.out.println("You stay" + extraHandText + ".");
+				ConsoleIO.outputln("You stay", extraHandText, ".");
 				if (currentHand == hand && split) {
 					currentHand = splitHand;
-					response = "";
 					extraHandText = " on your second hand";
+				}
+				else {
+					currentHand = null;
 				}
 			}
 			else if (response.equals("D")) {
 				if (hand.canSplit() && !split) {
-					System.out.println("You split!");
+					ConsoleIO.outputln("You split!");
 					split(deck);
 					extraHandText = " for your first hand";
-					System.out.println(showHand());
+					ConsoleIO.outputln(getHand());
 				}
 				else {
-					System.out.println("You may only split when your initial two cards are of the same rank.\r\n\r\n");
+					ConsoleIO.outputln("You may only split when your initial two cards are of the same rank.\r\n");
 				}
 			}
 			else if (response.equals("INVALID")) {
-				System.out.println("That's not a valid option.\r\n\r\n");
+				ConsoleIO.outputln("That's not a valid option.\r\n");
 			}
 		}
 		
-		System.out.println(this.showHand());
+		ConsoleIO.outputln(this.getHand());
 	}
 }

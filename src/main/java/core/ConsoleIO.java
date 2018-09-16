@@ -8,16 +8,28 @@ public class ConsoleIO {
 	private static final String[] validInputs =  {"Q", "C", "F", "H", "S", "D", "CD", "FD"};
 	private static boolean initialized = false;
 	
-	public static String input(String message) {
+	public static String input(String... message) {
 		String input = null;
 		
 		if (!initialized) {
 			init();
 		}
-		System.out.print(message);
+		output(message);
 		input = validateInput(s.nextLine());
 		
 		return input;
+	}
+	
+	public static void output(String... message) {
+		for (String m : message) {
+			System.out.print(m);
+		}
+		
+	}
+	
+	public static void outputln(String... message) {
+		output(message);
+		System.out.print(System.lineSeparator());
 	}
 	
 	public static void init() {
@@ -45,7 +57,7 @@ public class ConsoleIO {
 	 * 			   - moved to ConsoleIO	
 	 **************/
 	protected static String validateInput(Object rawInput) {
-		String input = null;
+		String input = "";
 		
 		rawInput = rawInput.toString().toUpperCase();
 		for (String s : validInputs) {

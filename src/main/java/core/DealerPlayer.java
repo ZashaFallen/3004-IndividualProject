@@ -6,7 +6,7 @@ public class DealerPlayer extends Player {
 		super(deck);
 	}
 	
-	public String showHand(boolean showHidden) {
+	public String getHand(boolean showHidden) {
 		String dealerHand = "Dealer's Hand: ";
 		
 		if (showHidden || Game.debug) {
@@ -32,19 +32,11 @@ public class DealerPlayer extends Player {
 		boolean check = false;
 		int score = handToCheck.getScore();
 		
-		if (Game.human.getBestHandState() == PlayerState.busted) {
-			check = false;
-		}
-		else if (score <= 16) {
+		if (Game.human.getBestHandState() != PlayerState.busted) {
+			if (score <= 16 || (
+				score == 17 && handToCheck.containsAce())) {
 			check = true;
-			showHand();
-		}
-		else if (score == 17 && handToCheck.containsAce()) {
-			check = true;
-			showHand();
-		}
-		else {
-			check = false;
+			}
 		}
 		
 		return check;
@@ -52,41 +44,36 @@ public class DealerPlayer extends Player {
 	
 	@Override
 	public void takeTurn(Deck deck) {
-		String firstHand= "";
+		String extraHandString = "";
 		
-		System.out.print(System.lineSeparator());
-		System.out.println(this.showHand(false));
+		ConsoleIO.output(System.lineSeparator());
+		ConsoleIO.output(this.getHand(false));
 		
 		if (hand.canSplit() && hand.getScore() <= 17) {
 			split(deck);
-			firstHand = " for their first hand";
-			System.out.println("The dealer splits.");
-			System.out.println(this.showHand(true));
-		}
-		while(checkHit(hand)) {
-			System.out.println("The dealer hits" + firstHand + ": " + hand.hit(deck).toString());
-		}
-		if (hand.getState() == PlayerState.busted) {
-			System.out.println("The dealer busts " + firstHand + "!");
-		}
-		else {
-			System.out.println("The dealer stays " + firstHand + ".");
+			extraHandString = " for their first hand";
+			ConsoleIO.outputln("\r\nThe dealer splits.");
+			ConsoleIO.outputln(this.getHand(true));
 		}
 		
-		if (split) {
-			System.out.print(System.lineSeparator());
+		while(checkHit(currentHand)) {
+			ConsoleIO.outputln("The dealer hits", extraHandString, ": ", currentHand.hit(deck).toString());
 			
-			while(checkHit(splitHand)) {
-				System.out.println("The dealer hits for their second hand: " + splitHand.hit(deck).toString());
-			}
-			if (splitHand.getState() == PlayerState.busted) {
-				System.out.println("The dealer busts for their second hand!");
-			}
-			else {
-				System.out.println("The dealer stays for their second hand.");
+			if (!checkHit(currentHand)) {
+				if (currentHand.getState() == PlayerState.busted) {
+					ConsoleIO.outputln("The dealer busts ", extraHandString, "!");
+				}
+				else {
+					ConsoleIO.outputln("The dealer stays ", extraHandString, ".");
+				}
+				
+				if (split && currentHand == hand) {
+					currentHand = splitHand;
+					extraHandString = " for their second hand";
+				}
 			}
 		}
 		
-		System.out.println(this.showHand(true));
+		ConsoleIO.outputln(this.getHand(true));
 	}
 }
