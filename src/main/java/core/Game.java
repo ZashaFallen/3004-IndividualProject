@@ -28,17 +28,13 @@ public class Game {
 		if (gameState == GameState.console) {
 			setUpGame();
 			
-			if (checkInitialBlackjack()) {
-				System.out.println(winner());
-			}
-			else {
+			if (!checkInitialBlackjack()) {
 				human.takeTurn(deck);
 				if (human.getBestHandState() != Player.PlayerState.busted) {
 					dealer.takeTurn(deck);
 				}
-				
-				System.out.println(winner());
 			}
+			System.out.println(winner());
 		}
 		else if (gameState == GameState.file) {
 			System.out.print("File input is not supported yet.");
