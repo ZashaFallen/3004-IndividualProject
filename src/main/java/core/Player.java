@@ -14,7 +14,7 @@ public class Player {
 	public boolean initialBlackjack = false;
 	
 	protected boolean split;
-	//protected Hand currentHand;
+	protected Hand currentHand;
 	
 	public Player(Deck deck) {
 		hand = new Hand();
@@ -22,7 +22,7 @@ public class Player {
 		hand.add(deck.draw());
 		hand.add(deck.draw());
 		
-		//currentHand = hand;
+		currentHand = hand;
 	}
 	
 	public int getBestHandScore() {

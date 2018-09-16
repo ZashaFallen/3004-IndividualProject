@@ -59,7 +59,7 @@ public class DealerPlayer extends Player {
 		
 		if (hand.canSplit() && hand.getScore() <= 17) {
 			split(deck);
-			firstHand = " on their first hand";
+			firstHand = " for their first hand";
 			System.out.println("The dealer splits.");
 			System.out.println(this.showHand(true));
 		}
@@ -77,13 +77,13 @@ public class DealerPlayer extends Player {
 			System.out.print(System.lineSeparator());
 			
 			while(checkHit(splitHand)) {
-				System.out.println("The dealer hits on their second hand: " + splitHand.hit(deck).toString());
+				System.out.println("The dealer hits for their second hand: " + splitHand.hit(deck).toString());
 			}
 			if (splitHand.getState() == PlayerState.busted) {
-				System.out.println("The dealer busts on their second hand!");
+				System.out.println("The dealer busts for their second hand!");
 			}
 			else {
-				System.out.println("The dealer stays on their second hand.");
+				System.out.println("The dealer stays for their second hand.");
 			}
 		}
 		

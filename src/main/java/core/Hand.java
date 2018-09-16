@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 public class Hand {
 	protected List<Card> cards = new ArrayList<Card>();
 	
+	private boolean alreadyHit = false;
+	
 	public void add(Card card) {
 		cards.add(card);
 	}
@@ -74,6 +76,8 @@ public class Hand {
 	}
 	
 	public Card hit(Deck deck) {
+		alreadyHit = true;
+		
 		Card newCard = deck.draw();
 		this.add(newCard);
 		
@@ -81,10 +85,16 @@ public class Hand {
 	}
 	
 	public boolean canSplit() {
-		boolean check = false;
+		boolean check;
 		
-		if (cards.size() == 2 && cards.get(0).getRank().equals(cards.get(1).getRank())) {
+		if (alreadyHit) {
+			check = false;
+		}
+		else if (cards.size() == 2 && cards.get(0).getRank().equals(cards.get(1).getRank())) {
 			check = true;
+		}
+		else {
+			check = false;
 		}
 		
 		return check;
