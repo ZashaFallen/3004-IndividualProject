@@ -1,31 +1,20 @@
 package core;
 
 import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 import junit.framework.TestCase;
 
-public class GameClassTests extends TestCase {
+public class GameClassTests extends TestCase {	
 	
-	@Test
-	public void testValidateInputValidString() {
-		assertEquals("C", Game.validateInput("C"));
-		assertEquals("C", Game.validateInput("c"));
-		
-		assertEquals("F", Game.validateInput("F"));
-		assertEquals("F", Game.validateInput("f"));
-		
-		assertEquals("H", Game.validateInput("H"));
-		assertEquals("H", Game.validateInput("h"));
-		
-		assertEquals("S", Game.validateInput("S"));
-		assertEquals("S", Game.validateInput("s"));
+	@Before
+	public void init() {
+		ConsoleIO.init();
 	}
 	
-	@Test
-	public void testValidateInputInvalidString() {
-		assertEquals("INVALID", Game.validateInput("invalid"));
-		assertEquals("INVALID", Game.validateInput(2));
-		assertEquals("INVALID", Game.validateInput(2.4));
-		assertEquals("INVALID", Game.validateInput(""));
+	@After
+	public void close() {
+		ConsoleIO.close();
 	}
 	
 	@Test
@@ -45,7 +34,7 @@ public class GameClassTests extends TestCase {
 		Game.GameState gameState = Game.getGameState("");
 		assertEquals(Game.GameState.invalid, gameState);
 		
-		gameState = Game.getGameState(123);
+		gameState = Game.getGameState(null);
 		assertEquals(Game.GameState.invalid, gameState);
 		
 		gameState = Game.getGameState("abc");

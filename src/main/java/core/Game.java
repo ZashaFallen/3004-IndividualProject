@@ -1,8 +1,5 @@
 package core;
 
-import java.util.Objects;
-import java.util.Scanner;
-
 public class Game {
 	
 	enum GameState {
@@ -19,16 +16,13 @@ public class Game {
 	protected static HumanPlayer human;
 	protected static DealerPlayer dealer;
 	
-	private static Deck deck;
-	private static final String[] validInputs =  {"Q", "C", "F", "H", "S", "CD", "FD"};
-	
+	private static Deck deck;	
 	
 	public static void main(String[] args) {
-		Scanner s = new Scanner(System.in);
+		ConsoleIO.init();
 		
 		while (gameState == GameState.invalid) {
-			System.out.print("Would you like to use (c)console or (f)file input?: ");
-			gameState = getGameState(s.nextLine());
+			gameState = getGameState(ConsoleIO.input("Would you like to use (c)console or (f)file input?: "));
 		}
 		
 		if (gameState == GameState.console) {
@@ -50,7 +44,7 @@ public class Game {
 			System.out.print("File input is not supported yet.");
 		}
 		
-		s.close();
+		ConsoleIO.close();
 	}
 
 
@@ -75,21 +69,20 @@ public class Game {
 	 * Output:  No return value. Modifies 'Game.gameState'.
 	 * Created:	12/09/2018
 	 **************/
-	protected static GameState getGameState(Object rawInput) {
+	protected static GameState getGameState(String validatedInput) {
 		GameState state = GameState.invalid;
-		String input = validateInput(rawInput);
 		
-		if (input == null) {
+		if (validatedInput == null) {
 			System.out.println("Invalid input. Please enter 'C' for console input, 'F' for file input, or 'Q' to quit.\r\n");
 		}
-		else if (input.equals("C")) state = GameState.console;
-		else if (input.equals("F")) state = GameState.file;
-		else if (input.equals("Q")) state = GameState.quit;
-		else if (input.equals("CD")) {
+		else if (validatedInput.equals("C")) state = GameState.console;
+		else if (validatedInput.equals("F")) state = GameState.file;
+		else if (validatedInput.equals("Q")) state = GameState.quit;
+		else if (validatedInput.equals("CD")) {
 			state = GameState.console;
 			debug = true;
 		}
-		else if (input.equals("FD")) {
+		else if (validatedInput.equals("FD")) {
 			state = GameState.file;
 			debug = true;
 		}
@@ -97,28 +90,6 @@ public class Game {
 		return state;
 	}
 	
-	
-	/**************
-	 * Purpose: Used to validate user input. Receives raw user input
-	 * 				(from the console) and checks it against a list of 
-	 * 				'valid' inputs.
-	 * Input:   Raw user input.
-	 * Output:  'null' if the input does not match an entry in the 
-	 * 				list of valid inputs.
-	 * 			If the input does match a valid input, then it is 
-	 * 				returned as a string (upper case).
-	 * Created:	12/09/2018
-	 **************/
-	protected static String validateInput(Object rawInput) {
-		String input = "INVALID";
-		
-		rawInput = rawInput.toString().toUpperCase();
-		for (String s : validInputs) {
-			if (Objects.equals(rawInput, s)) input = s;
-		}
-		 
-		return input;
-	}
 	
 	protected static boolean checkInitialBlackjack() {
 		boolean check = false;
@@ -135,11 +106,13 @@ public class Game {
 		return check;
 	}
 	
+	
 	protected static void displayBothHands() {
 		System.out.println(System.lineSeparator());
 		System.out.println(dealer.showHand(true) + " Final Score: " + dealer.getBestHandScore());
 		System.out.println(human.showHand() + " Final Score: " + human.getBestHandScore());
 	}
+	
 	
 	protected static String winner() {
 		final String win = "You Win!";

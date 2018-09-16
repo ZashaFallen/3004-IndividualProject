@@ -5,11 +5,23 @@ import static org.hamcrest.Matchers.*;
 import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import org.junit.Test;
 import junit.framework.TestCase;
+import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 
 
 public class PlayerClassTests extends TestCase {
+	
+	@Before
+	public void init() {
+		ConsoleIO.init();
+	}
+	
+	@After
+	public void close() {
+		ConsoleIO.close();
+	}
 	
 	/**************
 	 * Purpose:  Test a player's 'hit' option. A deck and a player are created,
@@ -301,9 +313,15 @@ public class PlayerClassTests extends TestCase {
 		human.takeTurn(deck);
 		
 		assertThat(human.getBestHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
+	}
+	
+	@Test
+	public void testHumanPlayerSplitTurn() {
+		Deck deck = new Deck();
+		HumanPlayer human;
+		System.out.print(System.lineSeparator());
+		System.out.print(System.lineSeparator());
 		
-		// dealer's hand adds to 17 or less, so split
-		deck = new Deck();
 		deck.cards = new ArrayList<Card>();
 		deck.cards.add(new Card("C", "8", 8)); // human's first card
 		deck.cards.add(new Card("D", "8", 8)); // human's second card
@@ -312,6 +330,8 @@ public class PlayerClassTests extends TestCase {
 		deck.cards.add(new Card("H", "5", 5));   // automatically added to human's split hand.
 		deck.cards.add(new Card("C", "10", 10));
 		deck.cards.add(new Card("H", "7", 7));
+		
+		System.out.print(human.showHand());
 		human.takeTurn(deck);
 		
 		assertEquals(true, human.split);
