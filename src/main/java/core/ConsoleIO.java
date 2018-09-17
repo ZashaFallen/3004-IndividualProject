@@ -1,5 +1,12 @@
 package core;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -32,16 +39,6 @@ public class ConsoleIO {
 		System.out.print(System.lineSeparator());
 	}
 	
-	public static void init() {
-		if (!initialized) {
-			initialized = true;
-			s = new Scanner(System.in);
-		}
-	}
-	
-	public static void close() {
-		s.close();
-	}
 	
 	/**************
 	 * Purpose: Used to validate user input. Receives raw user input
@@ -65,5 +62,44 @@ public class ConsoleIO {
 		}
 		 
 		return input;
+	}
+	
+	
+	public void readFileInput(String filePath) {
+		List<String> fileContents;
+		File file = new File(filePath);
+		
+		if (file.exists()) {
+			try(BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+				String fileText = "";
+			    StringBuilder sb = new StringBuilder();
+			    String line = br.readLine();
+
+			    while (line != null) {
+			        sb.append(line);
+			        sb.append(System.lineSeparator());
+			        line = br.readLine();
+			    }
+			    fileText = sb.toString();
+			    fileContents = Arrays.asList(fileText.split("\\s*"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+	}
+	
+	
+	public static void init() {
+		if (!initialized) {
+			initialized = true;
+			s = new Scanner(System.in);
+		}
+	}
+	
+	public static void close() {
+		s.close();
 	}
 }

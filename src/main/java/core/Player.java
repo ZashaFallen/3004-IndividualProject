@@ -2,7 +2,7 @@ package core;
 
 
 public class Player {
-	enum PlayerState {
+	public enum PlayerState {
 		safe,
 		blackjack,
 		busted,

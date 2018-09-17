@@ -15,8 +15,7 @@ public class Game {
 	
 	protected static HumanPlayer human;
 	protected static DealerPlayer dealer;
-	
-	private static Deck deck;	
+	protected static Deck deck;	
 	
 	public static void main(String[] args) {
 		ConsoleIO.init();

@@ -1,7 +1,11 @@
 package core;
 
-public class HumanPlayer extends Player {
+import java.util.List;
 
+public class HumanPlayer extends Player {
+	
+	public List<String> fileCommands; 
+	
 	public HumanPlayer(Deck deck) {
 		super(deck);
 	}
