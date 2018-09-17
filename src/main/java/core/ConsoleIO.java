@@ -65,7 +65,7 @@ public class ConsoleIO {
 	}
 	
 	
-	public void readFileInput(String filePath) {
+	public static void readInputFile(String filePath) {
 		List<String> fileContents;
 		File file = new File(filePath);
 		
@@ -89,6 +89,32 @@ public class ConsoleIO {
 		}
 		
 		
+	}
+	
+	public static boolean isValidCard(String card) {
+		boolean check = false;
+		String[] validSuits = { "H", "D", "S", "C" };
+		String[] validRanks = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+		
+		if (card != null && card.length() >= 2) {
+			if (Arrays.asList(validSuits).contains(card.substring(0, 1).toUpperCase()) &
+				Arrays.asList(validRanks).contains(card.substring(1).toUpperCase())) {
+				check = true;
+			}
+		}
+		
+		return check;
+	}
+	
+	public static boolean isValidPlayerCommand(String playerCommand) {
+		boolean check = false;
+		String[] validPlayerCommands = { "H", "S", "D" };
+		
+		if (playerCommand != null && Arrays.asList(validPlayerCommands).contains(playerCommand.toUpperCase())) {
+			check = true;
+		}
+		
+		return check;
 	}
 	
 	

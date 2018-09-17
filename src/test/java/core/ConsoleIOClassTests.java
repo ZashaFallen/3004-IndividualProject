@@ -71,16 +71,20 @@ public class ConsoleIOClassTests extends TestCase {
 		assertEquals(false, ConsoleIO.isValidCard("D"));
 	}
 	
+	@Test
 	public void testIsValidPlayerCommand() {	
 		assertEquals(true, ConsoleIO.isValidPlayerCommand("S"));
 		assertEquals(true, ConsoleIO.isValidPlayerCommand("H"));
 		assertEquals(true, ConsoleIO.isValidPlayerCommand("D"));
+		assertEquals(true, ConsoleIO.isValidPlayerCommand("s"));
+		assertEquals(true, ConsoleIO.isValidPlayerCommand("h"));
+		assertEquals(true, ConsoleIO.isValidPlayerCommand("d"));
 		
 		assertEquals(false, ConsoleIO.isValidPlayerCommand("DA"));
 		assertEquals(false, ConsoleIO.isValidPlayerCommand("H8"));
 		assertEquals(false, ConsoleIO.isValidPlayerCommand("CQ"));
 		assertEquals(false, ConsoleIO.isValidPlayerCommand("SK"));
-		assertEquals(false, ConsoleIO.isValidCard("1"));
-		assertEquals(false, ConsoleIO.isValidCard(""));
+		assertEquals(false, ConsoleIO.isValidPlayerCommand("1"));
+		assertEquals(false, ConsoleIO.isValidPlayerCommand(""));
 	}
 }
