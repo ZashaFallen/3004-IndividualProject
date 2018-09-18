@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 public class Hand {
 	protected List<Card> cards = new ArrayList<Card>();
+	protected boolean aceWorth11 = false;
 	
 	private boolean alreadyHit = false;
 	
@@ -35,6 +36,7 @@ public class Hand {
 			if (card.value == 0) {
 				score += 11;
 				acesCount += 1;
+				aceWorth11 = true;
 			}
 			else {
 				score += card.value;
@@ -43,6 +45,9 @@ public class Hand {
 		
 		for (int i = acesCount; i > 0 && score > 21; i--) {
 			score -= 10;
+		}
+		if (acesCount == 0) {
+			aceWorth11 = false;
 		}
 		
 		return score;
@@ -64,16 +69,7 @@ public class Hand {
 		
 		return state;
 	}
-	
-	public boolean containsAce() {
-		boolean check = false;
-		
-		for (Card c : cards) {
-			if (c.value == 0) check = true;
-		}
-		
-		return check;
-	}
+
 	
 	public Card hit(Deck deck) {
 		alreadyHit = true;

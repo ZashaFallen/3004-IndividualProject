@@ -111,18 +111,6 @@ public class HandClassTests extends TestCase{
 		assertEquals(Player.PlayerState.blackjack, hand.getState());
 	}
 	
-	@Test
-	public void testContainsAce() {
-		Hand hand = new Hand();
-		
-		assertEquals(false, hand.containsAce());
-		
-		hand.add(new Card("S", "K", 10));
-		assertEquals(false, hand.containsAce());
-		
-		hand.add(new Card("C", "A", 0));
-		assertEquals(true, hand.containsAce());
-	}
 	
 	@Test
 	public void testCanSplit() {

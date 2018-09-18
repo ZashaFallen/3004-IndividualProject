@@ -1,7 +1,7 @@
 package core;
 
 public class DealerPlayer extends Player {
-
+	
 	public DealerPlayer(Deck deck) {
 		super(deck);
 	}
@@ -34,7 +34,7 @@ public class DealerPlayer extends Player {
 		
 		if (Game.human.getBestHandState() != PlayerState.busted) {
 			if (score <= 16 || (
-				score == 17 && handToCheck.containsAce())) {
+				score == 17 && handToCheck.aceWorth11)) {
 			check = true;
 			}
 		}
@@ -47,7 +47,7 @@ public class DealerPlayer extends Player {
 		String extraHandString = "";
 		
 		ConsoleIO.output(System.lineSeparator());
-		ConsoleIO.output(this.getHand(false));
+		ConsoleIO.outputln(this.getHand(false));
 		
 		if (hand.canSplit() && hand.getScore() <= 17) {
 			split(deck);
@@ -61,10 +61,10 @@ public class DealerPlayer extends Player {
 			
 			if (!checkHit(currentHand)) {
 				if (currentHand.getState() == PlayerState.busted) {
-					ConsoleIO.outputln("The dealer busts ", extraHandString, "!");
+					ConsoleIO.outputln("The dealer busts", extraHandString, "!");
 				}
 				else {
-					ConsoleIO.outputln("The dealer stays ", extraHandString, ".");
+					ConsoleIO.outputln("The dealer stays", extraHandString, ".");
 				}
 				
 				if (split && currentHand == hand) {

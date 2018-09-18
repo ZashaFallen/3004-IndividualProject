@@ -24,34 +24,47 @@ public class Game {
 			setGameState(ConsoleIO.input("Would you like to use (c)console or (f)file input?: "));
 		}
 		
-		if (gameState == GameState.console) {
-			setUpGame();
+		if (gameState != GameState.quit) {
 			
-			if (!checkInitialBlackjack()) {
-				human.takeTurn(deck);
-				if (human.getBestHandState() != Player.PlayerState.busted) {
-					dealer.takeTurn(deck);
-				}
+			if (gameState == GameState.console) {
+				setUpGame();
 			}
-
+			else if (gameState == GameState.file) {
+				ConsoleIO.readInputFile("src/main/resources/input files/file5.txt");
+			}
 			
-			displayBothHands();
-			if (getWinner()) {
-				if (checkInitialBlackjack()) {
-					ConsoleIO.output("You got an initial blackjack, and the dealer didn't!");
+			ConsoleIO.outputln(System.lineSeparator());
+			ConsoleIO.outputln(dealer.getHand(false));
+			ConsoleIO.outputln(human.getHand());
+			ConsoleIO.output(System.lineSeparator());
+			
+			if (!ConsoleIO.inputError) {
+				if (!checkInitialBlackjack()) {
+					human.takeTurn(deck);
+					if (human.getBestHandState() != Player.PlayerState.busted && !ConsoleIO.inputError) {
+						dealer.takeTurn(deck);
+					}
 				}
-				ConsoleIO.output("You won!");
+
+				
+				displayBothHands();
+				if (getWinner()) {
+					if (checkInitialBlackjack()) {
+						ConsoleIO.output("You got an initial blackjack, and the dealer didn't!");
+					}
+					ConsoleIO.output("You won!");
+				}
+				else {
+					if (checkInitialBlackjack()) {
+						ConsoleIO.output("The dealer got an initial blackjack! ");
+					}
+					ConsoleIO.output("You lost!");
+				}
 			}
 			else {
-				if (checkInitialBlackjack()) {
-					ConsoleIO.output("The dealer got an initial blackjack!");
-				}
-				ConsoleIO.output("You lost!");
+				ConsoleIO.output("");
 			}
 			
-		}
-		else if (gameState == GameState.file) {
-			ConsoleIO.output("File input is not supported yet.");
 		}
 		
 		ConsoleIO.close();
@@ -63,10 +76,6 @@ public class Game {
 		deck.shuffle();
 		human = new HumanPlayer(deck);
 		dealer = new DealerPlayer(deck);
-		
-		System.out.print(System.lineSeparator());
-		System.out.println(dealer.getHand(false));
-		System.out.println(human.getHand());
 	}
 	
 	

@@ -1,10 +1,6 @@
 package core;
 
-import java.util.List;
-
 public class HumanPlayer extends Player {
-	
-	public List<String> fileCommands; 
 	
 	public HumanPlayer(Deck deck) {
 		super(deck);
@@ -37,6 +33,7 @@ public class HumanPlayer extends Player {
 				
 				if(currentHand.getState() == PlayerState.busted) {
 					ConsoleIO.outputln("You bust", extraHandText + "!");
+					ConsoleIO.output(System.lineSeparator());
 					
 					if (currentHand == hand && split) {
 						currentHand = splitHand;
@@ -49,6 +46,7 @@ public class HumanPlayer extends Player {
 			}
 			else if (response.equals("S")) {
 				ConsoleIO.outputln("You stay", extraHandText, ".");
+				ConsoleIO.output(System.lineSeparator());
 				if (currentHand == hand && split) {
 					currentHand = splitHand;
 					extraHandText = " on your second hand";
@@ -63,13 +61,18 @@ public class HumanPlayer extends Player {
 					split(deck);
 					extraHandText = " for your first hand";
 					ConsoleIO.outputln(getHand());
+					ConsoleIO.output(System.lineSeparator());
 				}
 				else {
-					ConsoleIO.outputln("You may only split when your initial two cards are of the same rank.\r\n");
+					ConsoleIO.outputln("You may only split when your initial two cards are of the same rank.");
 				}
 			}
-			else if (response.equals("INVALID")) {
+			else if (response.equals("")) {
 				ConsoleIO.outputln("That's not a valid option.\r\n");
+			}
+			else if (ConsoleIO.inputError) {
+				ConsoleIO.outputln("Tried to get file input and did not find any more commands!");
+				currentHand = null;
 			}
 		}
 		

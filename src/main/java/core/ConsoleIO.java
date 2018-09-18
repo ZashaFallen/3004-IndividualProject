@@ -11,18 +11,34 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class ConsoleIO {
+	protected static boolean inputError = false;
+	protected static List<String> fileCommands = null;
+	
 	private static Scanner s;
 	private static final String[] validInputs =  {"Q", "C", "F", "H", "S", "D", "CD", "FD"};
 	private static boolean initialized = false;
 	
+	
 	public static String input(String... message) {
 		String input = null;
 		
-		if (!initialized) {
-			init();
+		if (fileCommands != null) {
+			if (fileCommands.size() > 0) {
+				input = fileCommands.remove(0);
+			}
+			else {
+				input = "";
+				inputError = true;
+			}
+			
 		}
-		output(message);
-		input = validateInput(s.nextLine());
+		else {
+			if (!initialized) {
+				init();
+			}
+			output(message);
+			input = validateInput(s.nextLine());
+		}
 		
 		return input;
 	}
@@ -65,10 +81,7 @@ public class ConsoleIO {
 	}
 	
 	
-	public static boolean readInputFile(String filePath) {
-		boolean check = true;
-		
-		List<String> fileCommands = new ArrayList<String>(); 
+	public static void readInputFile(String filePath) {
 		List<String> fileContents;
 		File file = new File(filePath);
 		
@@ -88,6 +101,7 @@ public class ConsoleIO {
 			    
 			    Game.deck = new Deck();
 			    Game.deck.cards = new ArrayList<Card>();
+			    fileCommands = new ArrayList<String>(); 
 			    for (String element : fileContents) {
 					if (isValidCard(element)) {
 						Game.deck.cards.add(new Card(element.substring(0, 1).toUpperCase(), 
@@ -98,27 +112,23 @@ public class ConsoleIO {
 						fileCommands.add(element);
 					}
 					else {
-						check = false;
+						inputError = true;
 					}
 				}
 			    
-			    if (check) {
+			    if (!inputError) {
 			    	Game.human = new HumanPlayer(Game.deck);
-					Game.dealer = new DealerPlayer(Game.deck);
-					
-					Game.human.fileCommands = fileCommands; 
+					Game.dealer = new DealerPlayer(Game.deck); 
 			    }
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				check = false;
+				inputError = true;
 			}
 		}
 		else {
-			check = false;
+			inputError = true;
 		}
-		
-		return check;
 	}
 	
 	public static boolean isValidCard(String card) {

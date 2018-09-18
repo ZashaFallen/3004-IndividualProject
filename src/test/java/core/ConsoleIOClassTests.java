@@ -2,9 +2,7 @@ package core;
 
 import org.junit.Test;
 import org.junit.Before;
-import org.hamcrest.core.Is;
 import org.junit.After;
-import org.junit.Assert.*;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -45,7 +43,7 @@ public class ConsoleIOClassTests extends TestCase {
 	
 	@Test
 	public void testReadInputFile() {
-		boolean check = ConsoleIO.readInputFile("src/main/resources/input files/file1.txt");
+		ConsoleIO.readInputFile("src/main/resources/input files/file1.txt");
 		
 		List<String> expectedPlayerCommands = new ArrayList<String>();
 		List<Card> expectedPlayerCardList = new ArrayList<Card>();
@@ -55,12 +53,12 @@ public class ConsoleIOClassTests extends TestCase {
 		expectedDealerCardList.add(new Card("H", "Q", 10));
 		expectedDealerCardList.add(new Card("C", "A", 0));
 		
-		assertTrue(check);
-		assertEquals(expectedPlayerCommands, Game.human.fileCommands);
-		for (int i = 0; i < Game.human.fileCommands.size(); i++) {
+		assertFalse(ConsoleIO.inputError);
+		assertEquals(expectedPlayerCommands, ConsoleIO.fileCommands);
+		for (int i = 0; i < Game.human.hand.cards.size(); i++) {
 			assertEquals(expectedPlayerCardList.get(i).toString(), Game.human.hand.cards.get(i).toString());
 		}
-		for (int i = 0; i < Game.human.fileCommands.size(); i++) {
+		for (int i = 0; i < Game.dealer.hand.cards.size(); i++) {
 			assertEquals(expectedDealerCardList.get(i).toString(), Game.dealer.hand.cards.get(i).toString());
 		}
 	}
