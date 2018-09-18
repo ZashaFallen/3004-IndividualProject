@@ -65,7 +65,10 @@ public class ConsoleIO {
 	}
 	
 	
-	public static void readInputFile(String filePath) {
+	public static boolean readInputFile(String filePath) {
+		boolean check = true;
+		
+		List<String> fileCommands = new ArrayList<String>(); 
 		List<String> fileContents;
 		File file = new File(filePath);
 		
@@ -81,14 +84,41 @@ public class ConsoleIO {
 			        line = br.readLine();
 			    }
 			    fileText = sb.toString();
-			    fileContents = Arrays.asList(fileText.split("\\s*"));
+			    fileContents = Arrays.asList(fileText.split("\\s"));
+			    
+			    Game.deck = new Deck();
+			    Game.deck.cards = new ArrayList<Card>();
+			    for (String element : fileContents) {
+					if (isValidCard(element)) {
+						Game.deck.cards.add(new Card(element.substring(0, 1).toUpperCase(), 
+					       		 					 element.substring(1).toUpperCase(), 
+					       		 					 Deck.ranks.get(element.substring(1).toUpperCase())));
+					}
+					else if (isValidPlayerCommand(element)) {
+						fileCommands.add(element);
+					}
+					else {
+						check = false;
+					}
+				}
+			    
+			    if (check) {
+			    	Game.human = new HumanPlayer(Game.deck);
+					Game.dealer = new DealerPlayer(Game.deck);
+					
+					Game.human.fileCommands = fileCommands; 
+			    }
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				check = false;
 			}
 		}
+		else {
+			check = false;
+		}
 		
-		
+		return check;
 	}
 	
 	public static boolean isValidCard(String card) {

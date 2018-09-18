@@ -2,12 +2,15 @@ package core;
 
 import org.junit.Test;
 import org.junit.Before;
+import org.hamcrest.core.Is;
+import org.junit.After;
+import org.junit.Assert.*;
+import junit.framework.TestCase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
-import junit.framework.TestCase;
+
 
 public class ConsoleIOClassTests extends TestCase {
 	@Before
@@ -42,19 +45,26 @@ public class ConsoleIOClassTests extends TestCase {
 	
 	@Test
 	public void testReadInputFile() {
-		ConsoleIO.readInputFile("/3004-IndividualProject/src/main/resources/input files/file1.txt");
+		boolean check = ConsoleIO.readInputFile("src/main/resources/input files/file1.txt");
 		
 		List<String> expectedPlayerCommands = new ArrayList<String>();
-		List<Card> expectedCardList = new ArrayList<Card>();
-		expectedCardList.add(new Card("S", "K", 10));
-		expectedCardList.add(new Card("H", "A", 0));
-		expectedCardList.add(new Card("H", "Q", 10));
-		expectedCardList.add(new Card("C", "A", 0));
-			
-		assertEquals(expectedCardList, Game.deck.cards);
+		List<Card> expectedPlayerCardList = new ArrayList<Card>();
+		expectedPlayerCardList.add(new Card("S", "K", 10));
+		expectedPlayerCardList.add(new Card("H", "A", 0));
+		List<Card> expectedDealerCardList = new ArrayList<Card>();
+		expectedDealerCardList.add(new Card("H", "Q", 10));
+		expectedDealerCardList.add(new Card("C", "A", 0));
+		
+		assertTrue(check);
 		assertEquals(expectedPlayerCommands, Game.human.fileCommands);
+		for (int i = 0; i < Game.human.fileCommands.size(); i++) {
+			assertEquals(expectedPlayerCardList.get(i).toString(), Game.human.hand.cards.get(i).toString());
+		}
+		for (int i = 0; i < Game.human.fileCommands.size(); i++) {
+			assertEquals(expectedDealerCardList.get(i).toString(), Game.dealer.hand.cards.get(i).toString());
+		}
 	}
-	
+
 	@Test
 	public void testIsValidCard() {
 		assertEquals(true, ConsoleIO.isValidCard("DA"));
