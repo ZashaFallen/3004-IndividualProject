@@ -32,7 +32,7 @@ public class DealerPlayer extends Player {
 		boolean check = false;
 		int score = handToCheck.getScore();
 		
-		if (Game.human.getBestHandState() != PlayerState.busted) {
+		if (Game.human.getBestHandState() != Hand.HandState.busted) {
 			if (score <= 16 || (
 				score == 17 && handToCheck.aceWorth11)) {
 			check = true;
@@ -60,7 +60,7 @@ public class DealerPlayer extends Player {
 			ConsoleIO.outputln("The dealer hits", extraHandString, ": ", currentHand.hit(deck).toString());
 			
 			if (!checkHit(currentHand)) {
-				if (currentHand.getState() == PlayerState.busted) {
+				if (currentHand.getState() == Hand.HandState.busted) {
 					ConsoleIO.outputln("The dealer busts", extraHandString, "!");
 				}
 				else {

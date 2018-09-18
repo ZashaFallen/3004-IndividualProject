@@ -2,13 +2,6 @@ package core;
 
 
 public class Player {
-	public enum PlayerState {
-		safe,
-		blackjack,
-		busted,
-		invalid
-	}
-	
 	public Hand hand;
 	public Hand splitHand = null;
 	public boolean initialBlackjack = false;
@@ -33,8 +26,8 @@ public class Player {
 		}
 		if (splitHand != null) {
 			if (bestScore <= splitHand.getScore() && (
-				splitHand.getState() == PlayerState.safe ||
-				splitHand.getState() == PlayerState.blackjack)) {
+				splitHand.getState() == Hand.HandState.safe ||
+				splitHand.getState() == Hand.HandState.blackjack)) {
 				bestScore = splitHand.getScore();
 			}
 		}
@@ -47,22 +40,22 @@ public class Player {
 		return null;
 	}
 	
-	public PlayerState getBestHandState() {		
-		PlayerState bestState = PlayerState.invalid;
+	public Hand.HandState getBestHandState() {		
+		Hand.HandState bestState = Hand.HandState.invalid;
 		
 		if (splitHand == null) {
 			bestState = hand.getState();
 		}
 		else {
-			if (hand.getState() == PlayerState.blackjack ||
-				splitHand.getState() == PlayerState.blackjack) {
-				bestState = PlayerState.blackjack;
+			if (hand.getState() == Hand.HandState.blackjack ||
+				splitHand.getState() == Hand.HandState.blackjack) {
+				bestState = Hand.HandState.blackjack;
 			}
-			else if (hand.getState() == PlayerState.safe ||
-					splitHand.getState() == PlayerState.safe) {
-					bestState = PlayerState.safe;
+			else if (hand.getState() == Hand.HandState.safe ||
+					splitHand.getState() == Hand.HandState.safe) {
+					bestState = Hand.HandState.safe;
 			}
-			else bestState = PlayerState.busted;
+			else bestState = Hand.HandState.busted;
 		}
 		
 		return bestState;

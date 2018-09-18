@@ -5,6 +5,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Hand {
+	public enum HandState {
+		safe,
+		blackjack,
+		busted,
+		invalid
+	}
+
 	protected List<Card> cards = new ArrayList<Card>();
 	protected boolean aceWorth11 = false;
 	
@@ -53,18 +60,18 @@ public class Hand {
 		return score;
 	}
 	
-	public Player.PlayerState getState() {
-		Player.PlayerState state = Player.PlayerState.invalid;
+	public HandState getState() {
+		HandState state = HandState.invalid;
 		int score = this.getScore();
 		
 		if (score == 21 && cards.size() == 2 && !alreadyHit) {
-			state = Player.PlayerState.blackjack;
+			state = HandState.blackjack;
 		}
 		else if (score <= 21) {
-			state = Player.PlayerState.safe;
+			state = HandState.safe;
 		}
 		else if (score > 21) {
-			state = Player.PlayerState.busted;
+			state = HandState.busted;
 		}
 		
 		return state;

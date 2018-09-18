@@ -41,7 +41,7 @@ public class Game {
 			if (!ConsoleIO.inputError) {
 				if (!checkInitialBlackjack()) {
 					human.takeTurn(deck);
-					if (human.getBestHandState() != Player.PlayerState.busted && !ConsoleIO.inputError) {
+					if (human.getBestHandState() != Hand.HandState.busted && !ConsoleIO.inputError) {
 						dealer.takeTurn(deck);
 					}
 				}
@@ -117,11 +117,11 @@ public class Game {
 	protected static boolean checkInitialBlackjack() {
 		boolean check = false;
 		
-		if (dealer.getBestHandState() == Player.PlayerState.blackjack) {
+		if (dealer.getBestHandState() == Hand.HandState.blackjack) {
 			check = true;
 			dealer.initialBlackjack = true;
 		}
-		if (human.getBestHandState() == Player.PlayerState.blackjack) {
+		if (human.getBestHandState() == Hand.HandState.blackjack) {
 			check = true;
 			human.initialBlackjack = true;
 		}
@@ -148,8 +148,8 @@ public class Game {
 		}
 		// the dealer busts, and the player is safe
 		// neither player busts, and the human's score is higher
-		else if (human.getBestHandState() == Player.PlayerState.safe && (
-				dealer.getBestHandState() == Player.PlayerState.busted ||
+		else if (human.getBestHandState() == Hand.HandState.safe && (
+				dealer.getBestHandState() == Hand.HandState.busted ||
 				human.getBestHandScore() > dealer.getBestHandScore())) {
 			humanWon = true;
 		}

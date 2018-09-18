@@ -24,14 +24,14 @@ public class HumanPlayer extends Player {
 		String response = "";
 		String extraHandText = "";
 		
-		while (currentHand != null && getBestHandState() != PlayerState.busted) {
+		while (currentHand != null && getBestHandState() != Hand.HandState.busted) {
 			response = ConsoleIO.input("\r\nWould you like to (h)hit, (s)stay, or (d) split", extraHandText, "? ");
 			
 			if (response.equals("H")) {
 				ConsoleIO.outputln("You hit", extraHandText, ": ", currentHand.hit(deck).toString());
 				ConsoleIO.outputln("Current score", extraHandText, ": ", Integer.toString(currentHand.getScore()));
 				
-				if(currentHand.getState() == PlayerState.busted) {
+				if(currentHand.getState() == Hand.HandState.busted) {
 					ConsoleIO.outputln("You bust", extraHandText + "!");
 					ConsoleIO.output(System.lineSeparator());
 					

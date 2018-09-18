@@ -54,18 +54,18 @@ public class PlayerClassTests extends TestCase {
 		player.hand = new Hand();
 		player.hand.add(new Card("H", "A", 0));
 		player.hand.add(new Card("D", "5", 5));
-		assertEquals(Player.PlayerState.safe, player.getBestHandState());
+		assertEquals(Hand.HandState.safe, player.getBestHandState());
 		
 		// single hand, busted
 		player.hand.add(new Card("D", "10", 10));
 		player.hand.add(new Card("D", "K", 10));
-		assertEquals(Player.PlayerState.busted, player.getBestHandState());
+		assertEquals(Hand.HandState.busted, player.getBestHandState());
 		
 		// single hand, blackjack
 		player.hand = new Hand();
 		player.hand.add(new Card("D", "A", 0));
 		player.hand.add(new Card("D", "K", 10));
-		assertEquals(Player.PlayerState.blackjack, player.getBestHandState());
+		assertEquals(Hand.HandState.blackjack, player.getBestHandState());
 		
 		// split hand, both safe
 		player.hand = new Hand();
@@ -74,7 +74,7 @@ public class PlayerClassTests extends TestCase {
 		player.splitHand = new Hand();
 		player.splitHand.add(new Card("D", "A", 0));
 		player.splitHand.add(new Card("D", "9", 9));
-		assertEquals(Player.PlayerState.safe, player.getBestHandState());
+		assertEquals(Hand.HandState.safe, player.getBestHandState());
 		
 		// split hand, split hand busted
 		player.hand = new Hand();
@@ -84,7 +84,7 @@ public class PlayerClassTests extends TestCase {
 		player.splitHand.add(new Card("D", "6", 6));
 		player.splitHand.add(new Card("D", "9", 9));
 		player.splitHand.add(new Card("D", "8", 8));
-		assertEquals(Player.PlayerState.safe, player.getBestHandState());
+		assertEquals(Hand.HandState.safe, player.getBestHandState());
 		
 		// split hand, first hand busted
 		player.hand = new Hand();
@@ -94,7 +94,7 @@ public class PlayerClassTests extends TestCase {
 		player.splitHand = new Hand();
 		player.splitHand.add(new Card("D", "A", 0));
 		player.splitHand.add(new Card("D", "9", 9));
-		assertEquals(Player.PlayerState.safe, player.getBestHandState());
+		assertEquals(Hand.HandState.safe, player.getBestHandState());
 		
 		// split hand, split hand blackjack
 		player.hand = new Hand();
@@ -103,7 +103,7 @@ public class PlayerClassTests extends TestCase {
 		player.splitHand = new Hand();
 		player.splitHand.add(new Card("D", "A", 0));
 		player.splitHand.add(new Card("D", "K", 10));
-		assertEquals(Player.PlayerState.blackjack, player.getBestHandState());
+		assertEquals(Hand.HandState.blackjack, player.getBestHandState());
 		
 		// split hand, first hand blackjack
 		player.hand = new Hand();
@@ -112,7 +112,7 @@ public class PlayerClassTests extends TestCase {
 		player.splitHand = new Hand();
 		player.splitHand.add(new Card("D", "A", 0));
 		player.splitHand.add(new Card("D", "5", 5));
-		assertEquals(Player.PlayerState.blackjack, player.getBestHandState());
+		assertEquals(Hand.HandState.blackjack, player.getBestHandState());
 		
 		// split hand, both hands busted
 		player.hand = new Hand();
@@ -123,7 +123,7 @@ public class PlayerClassTests extends TestCase {
 		player.splitHand.add(new Card("D", "6", 6));
 		player.splitHand.add(new Card("D", "9", 9));
 		player.splitHand.add(new Card("D", "8", 8));
-		assertEquals(Player.PlayerState.busted, player.getBestHandState());
+		assertEquals(Hand.HandState.busted, player.getBestHandState());
 	}
 	
 	@Test
@@ -278,7 +278,7 @@ public class PlayerClassTests extends TestCase {
 		ConsoleIO.outputln("Full hand for dealer platey turn test: " + dealer.getHand(true));
 		dealer.takeTurn(deck);
 		
-		assertThat(dealer.getBestHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
+		assertThat(dealer.getBestHandState(), anyOf(is(Hand.HandState.blackjack), is(Hand.HandState.safe), is(Hand.HandState.busted)));
 		
 		
 		// dealer's hand adds to 17 or less, so split
@@ -313,7 +313,7 @@ public class PlayerClassTests extends TestCase {
 		ConsoleIO.outputln(human.getHand());
 		human.takeTurn(deck);
 		
-		assertThat(human.getBestHandState(), anyOf(is(Player.PlayerState.blackjack), is(Player.PlayerState.safe), is(Player.PlayerState.busted)));
+		assertThat(human.getBestHandState(), anyOf(is(Hand.HandState.blackjack), is(Hand.HandState.safe), is(Hand.HandState.busted)));
 	}
 	
 	@Test
