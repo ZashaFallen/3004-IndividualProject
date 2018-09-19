@@ -7,18 +7,15 @@ public class HandClassTests extends TestCase{
 	
 	@Test
 	public void testGetScore() {
-		Hand hand = new Hand();
 		
+		// basic
+		Hand hand = new Hand();
 		hand.add(new Card("C", "K", 10));
 		hand.add(new Card("D", "5", 5));
 		assertEquals(15, hand.getScore());
-	}
-	
-	@Test
-	public void testGetScoreAs() {
-		Hand hand = new Hand();
 		
 		// A can count as 1
+		hand = new Hand();
 		hand.add(new Card("C", "K", 10));
 		hand.add(new Card("D", "5", 5));
 		assertEquals(15, hand.getScore());

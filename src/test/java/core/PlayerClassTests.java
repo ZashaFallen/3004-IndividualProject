@@ -275,9 +275,8 @@ public class PlayerClassTests extends TestCase {
 		Game.human = new HumanPlayer(deck);
 		
 		ConsoleIO.outputln(System.lineSeparator());
-		ConsoleIO.outputln("Full hand for dealer platey turn test: " + dealer.getHand(true));
+		ConsoleIO.outputln("Full hand for dealer player turn test: " + dealer.getHand(true));
 		dealer.takeTurn(deck);
-		
 		assertThat(dealer.getBestHandState(), anyOf(is(Hand.HandState.blackjack), is(Hand.HandState.safe), is(Hand.HandState.busted)));
 		
 		
@@ -301,6 +300,18 @@ public class PlayerClassTests extends TestCase {
 		assertEquals(3, dealer.hand.cards.size());
 		assertEquals(20, dealer.splitHand.getScore());
 		assertEquals(3, dealer.splitHand.cards.size());
+		
+		// force the player to bust, and the dealer shouldn't need to take their turn
+		deck = new Deck();
+		dealer = new DealerPlayer(deck);
+		Game.human = new HumanPlayer(deck);
+		Game.human.hand.add(new Card("S", "8", 8));
+		Game.human.hand.add(new Card("C", "K", 10));
+		Game.human.hand.add(new Card("S", "Q", 10));
+		
+		dealer.takeTurn(deck);
+		assertEquals(Hand.HandState.busted, Game.human.getBestHandState());
+		assertEquals(2, dealer.hand.cards.size());
 	}
 	
 	@Test
@@ -309,6 +320,8 @@ public class PlayerClassTests extends TestCase {
 		deck.shuffle();
 		HumanPlayer human = new HumanPlayer(deck);
 		
+		ConsoleIO.fileCommands = null;
+		ConsoleIO.inputError = false;
 		ConsoleIO.outputln(System.lineSeparator());
 		ConsoleIO.outputln(human.getHand());
 		human.takeTurn(deck);
@@ -330,6 +343,8 @@ public class PlayerClassTests extends TestCase {
 		deck.cards.add(new Card("C", "10", 10));
 		deck.cards.add(new Card("H", "7", 7));
 		
+		ConsoleIO.fileCommands = null;
+		ConsoleIO.inputError = false;
 		ConsoleIO.outputln(System.lineSeparator());
 		ConsoleIO.outputln(human.getHand());
 		human.takeTurn(deck);

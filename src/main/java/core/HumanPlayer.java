@@ -1,7 +1,5 @@
 package core;
 
-import java.util.concurrent.ExecutionException;
-
 public class HumanPlayer extends Player {
 	
 	public HumanPlayer(Deck deck) {
