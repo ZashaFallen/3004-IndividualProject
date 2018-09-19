@@ -1,5 +1,7 @@
 package core;
 
+import java.util.concurrent.ExecutionException;
+
 public class HumanPlayer extends Player {
 	
 	public HumanPlayer(Deck deck) {
@@ -73,6 +75,9 @@ public class HumanPlayer extends Player {
 			else if (ConsoleIO.inputError) {
 				ConsoleIO.outputln("Tried to get file input and did not find any more commands!");
 				currentHand = null;
+			}
+			else {
+				throw new IllegalArgumentException("Issue with human input in HumanPlayer.takeTurn()");
 			}
 		}
 		
