@@ -30,15 +30,15 @@ public class Game {
 				setUpGame();
 			}
 			else if (gameState == GameState.file) {
-				ConsoleIO.readInputFile("src/main/resources/input files/file5.txt");
+				ConsoleIO.readInputFile("src/main/resources/input files/file8.txt");
 			}
 			
-			ConsoleIO.outputln(System.lineSeparator());
-			ConsoleIO.outputln(dealer.getHand(false));
-			ConsoleIO.outputln(human.getHand());
-			ConsoleIO.output(System.lineSeparator());
-			
 			if (!ConsoleIO.inputError) {
+				ConsoleIO.outputln(System.lineSeparator());
+				ConsoleIO.outputln(dealer.getHand(false));
+				ConsoleIO.outputln(human.getHand());
+				ConsoleIO.output(System.lineSeparator());
+				
 				if (!checkInitialBlackjack()) {
 					human.takeTurn(deck);
 					if (human.getBestHandState() != Hand.HandState.busted && !ConsoleIO.inputError) {
@@ -47,22 +47,25 @@ public class Game {
 				}
 
 				
-				displayBothHands();
-				if (getWinner()) {
-					if (checkInitialBlackjack()) {
-						ConsoleIO.output("You got an initial blackjack, and the dealer didn't!");
+				if (!ConsoleIO.inputError) {
+					displayBothHands();
+					if (getWinner()) {
+						if (checkInitialBlackjack()) {
+							ConsoleIO.output("You got an initial blackjack, and the dealer didn't!");
+						}
+						ConsoleIO.output("You won!");
 					}
-					ConsoleIO.output("You won!");
-				}
-				else {
-					if (checkInitialBlackjack()) {
-						ConsoleIO.output("The dealer got an initial blackjack! ");
+					else {
+						if (checkInitialBlackjack()) {
+							ConsoleIO.output("The dealer got an initial blackjack! ");
+						}
+						ConsoleIO.output("You lost!");
 					}
-					ConsoleIO.output("You lost!");
 				}
 			}
-			else {
-				ConsoleIO.output("");
+			
+			if (ConsoleIO.inputError) {
+				ConsoleIO.output("There was an issue with the input file. Please verify that there are no duplicate cards, and the player commands are sufficient.");
 			}
 			
 		}

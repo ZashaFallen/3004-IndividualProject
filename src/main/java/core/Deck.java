@@ -20,7 +20,7 @@ public class Deck {
 
 	/**************
 	 * Purpose:  Use a built-in function to shuffle
-	 * 		the cards in a deck randomely.
+	 * 		the cards in a deck randomly.
 	 **************/
 	public void shuffle() {
 		Collections.shuffle(cards);

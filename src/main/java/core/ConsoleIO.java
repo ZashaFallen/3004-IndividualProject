@@ -19,6 +19,13 @@ public class ConsoleIO {
 	private static boolean initialized = false;
 	
 	
+	/**************
+	 * Purpose:  Receives any number of strings as an input to
+	 * 		show the user before asking for input. If the list
+	 * 		of player commands parsed from the file is not null,
+	 * 		the next player command is supplied instead of 
+	 * 		requesting user input.
+	 **************/
 	public static String input(String... message) {
 		String input = null;
 		
@@ -43,6 +50,9 @@ public class ConsoleIO {
 		return input;
 	}
 	
+	/**************
+	 * Purpose:  Print a message containing any number of strings
+	 **************/
 	public static void output(String... message) {
 		for (String m : message) {
 			System.out.print(m);
@@ -50,9 +60,13 @@ public class ConsoleIO {
 		
 	}
 	
+	/**************
+	 * Purpose:  Print a message containing any number of strings,
+	 * 		and then a newline.
+	 **************/
 	public static void outputln(String... message) {
 		output(message);
-		System.out.print(System.lineSeparator());
+		output(System.lineSeparator());
 	}
 	
 	
@@ -80,7 +94,10 @@ public class ConsoleIO {
 		return input;
 	}
 	
-	
+	/**************
+	 * Purpose:  Read and try to verify a file supplied
+	 * 		by the user that describes a game.
+	 **************/
 	public static void readInputFile(String filePath) {
 		List<String> fileContents;
 		File file = new File(filePath);
@@ -90,7 +107,8 @@ public class ConsoleIO {
 				String fileText = "";
 			    StringBuilder sb = new StringBuilder();
 			    String line = br.readLine();
-
+			    
+			    // read the file into a string, and split that string by spaces when added it to a List.
 			    while (line != null) {
 			        sb.append(line);
 			        sb.append(System.lineSeparator());
@@ -104,6 +122,8 @@ public class ConsoleIO {
 			    fileCommands = new ArrayList<String>(); 
 			    for (String element : fileContents) {
 					if (isValidCard(element)) {
+						// element.substring(0, 1) contains the first character (the suit)
+						// element.substring(1) contains the rest of the characters (the rank)
 						Game.deck.cards.add(new Card(element.substring(0, 1).toUpperCase(), 
 					       		 					 element.substring(1).toUpperCase(), 
 					       		 					 Deck.ranks.get(element.substring(1).toUpperCase())));
@@ -115,6 +135,11 @@ public class ConsoleIO {
 						inputError = true;
 					}
 				}
+			    
+			    // verify that the deck doesn't have any duplicate cards
+			    if (!Game.deck.checkDuplicates()) {
+			    	inputError = true;
+			    }
 			    
 			    if (!inputError) {
 			    	Game.human = new HumanPlayer(Game.deck);
@@ -131,6 +156,12 @@ public class ConsoleIO {
 		}
 	}
 	
+	
+	/**************
+	 * Purpose:  Receives the string of a possible card from the input
+	 * 		file, and tries to match it against the set of possible
+	 * 		cards.
+	 **************/
 	public static boolean isValidCard(String card) {
 		boolean check = false;
 		String[] validSuits = { "H", "D", "S", "C" };
@@ -146,6 +177,12 @@ public class ConsoleIO {
 		return check;
 	}
 	
+	
+	/**************
+	 * Purpose:  Receives the string of a possible player command
+	 * 		 from the input file, and tries to match it against the
+	 * 		 set of possible user inputs.
+	 **************/
 	public static boolean isValidPlayerCommand(String playerCommand) {
 		boolean check = false;
 		String[] validPlayerCommands = { "H", "S", "D" };
@@ -157,7 +194,10 @@ public class ConsoleIO {
 		return check;
 	}
 	
-	
+	/**************
+	 * Purpose:  Initialize the scanner. A scanner should only be
+	 * 		opened and closed once per execution.
+	 **************/
 	public static void init() {
 		if (!initialized) {
 			initialized = true;
@@ -165,6 +205,10 @@ public class ConsoleIO {
 		}
 	}
 	
+	/**************
+	 * Purpose:  Close the scanner. A scanner should only be
+	 * 		opened and closed once per execution.
+	 **************/
 	public static void close() {
 		s.close();
 	}

@@ -26,7 +26,7 @@ public class HumanPlayer extends Player {
 		String response = "";
 		String extraHandText = "";
 		
-		while (currentHand != null && getBestHandState() != Hand.HandState.busted) {
+		while (currentHand != null && getBestHandState() != Hand.HandState.busted && !ConsoleIO.inputError) {
 			response = ConsoleIO.input("\r\nWould you like to (h)hit, (s)stay, or (d) split", extraHandText, "? ");
 			
 			if (response.equals("H")) {
@@ -71,10 +71,6 @@ public class HumanPlayer extends Player {
 			}
 			else if (response.equals("")) {
 				ConsoleIO.outputln("That's not a valid option.\r\n");
-			}
-			else if (ConsoleIO.inputError) {
-				ConsoleIO.outputln("Tried to get file input and did not find any more commands!");
-				currentHand = null;
 			}
 			else {
 				throw new IllegalArgumentException("Issue with human input in HumanPlayer.takeTurn()");

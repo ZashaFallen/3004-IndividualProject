@@ -5,6 +5,10 @@ import java.util.*;
 import junit.framework.TestCase;
 
 public class DeckClassTests extends TestCase{
+	
+	/**************
+	 * Purpose:  Verify that a new deck has 52 cards.
+	 **************/
 	@Test
 	public void testCreateDeck() {
 		Deck deck = new Deck();
@@ -28,6 +32,11 @@ public class DeckClassTests extends TestCase{
 	}
 	
 	
+	/**************
+	 * Purpose:  Test the Deck.checkDuplicates() function
+	 * 		can properly detect decks with duplicates.
+	 **************/
+	@Test
 	public void testCheckDuplicates() {
 		Deck deck = new Deck();
 		deck.cards = new ArrayList<Card>();
