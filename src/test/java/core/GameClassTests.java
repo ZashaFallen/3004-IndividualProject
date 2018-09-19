@@ -1,7 +1,14 @@
 package core;
 
 import org.junit.Test;
+
+import core.Game.GameState;
+
 import org.junit.Before;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.After;
 import junit.framework.TestCase;
 
@@ -152,5 +159,39 @@ public class GameClassTests extends TestCase {
 		Game.dealer.hand.add(new Card("H", "J", 10));
 		Game.dealer.hand.add(new Card("S", "5", 5));
 		assertEquals(false, Game.getWinner());
+	}
+	
+	
+	/*
+	 * Purpose: test Game.setUp(), which either reads the input file or
+	 * 		initializes the player objects, depending on the game state.
+	 */
+	@Test
+	public void testSetUp() {
+		Game.gameState = Game.GameState.console;
+		Game.setUp();
+		assertNotNull(Game.deck);
+		assertNotNull(Game.human);
+		assertNotNull(Game.dealer);
+		
+		Game.gameState = Game.GameState.file;
+		Game.setUp();
+
+		List<String> expectedPlayerCommands = new ArrayList<String>();
+		List<Card> expectedPlayerCardList = new ArrayList<Card>();
+		expectedPlayerCardList.add(new Card("S", "K", 10));
+		expectedPlayerCardList.add(new Card("H", "A", 0));
+		List<Card> expectedDealerCardList = new ArrayList<Card>();
+		expectedDealerCardList.add(new Card("H", "Q", 10));
+		expectedDealerCardList.add(new Card("C", "A", 0));
+		
+		assertFalse(ConsoleIO.inputError);
+		assertEquals(expectedPlayerCommands, ConsoleIO.fileCommands);
+		for (int i = 0; i < Game.human.hand.cards.size(); i++) {
+			assertEquals(expectedPlayerCardList.get(i).toString(), Game.human.hand.cards.get(i).toString());
+		}
+		for (int i = 0; i < Game.dealer.hand.cards.size(); i++) {
+			assertEquals(expectedDealerCardList.get(i).toString(), Game.dealer.hand.cards.get(i).toString());
+		}
 	}
 }

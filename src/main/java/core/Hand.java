@@ -13,8 +13,8 @@ public class Hand {
 	}
 
 	protected List<Card> cards = new ArrayList<Card>();
-	protected boolean aceWorth11 = false;
 	
+	private boolean aceWorth11 = false;
 	private boolean alreadyHit = false;
 	
 	public void add(Card card) {
@@ -101,5 +101,9 @@ public class Hand {
 		}
 		
 		return check;
+	}
+	
+	public boolean getAceWorth11() {
+		return aceWorth11;
 	}
 }

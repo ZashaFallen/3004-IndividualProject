@@ -28,13 +28,19 @@ public class DealerPlayer extends Player {
 		return dealerHand;
 	}
 	
-	public boolean checkHit(Hand handToCheck) {
+	/*************************
+	 * Purpose: Checks if the dealer should hit on the current hand.
+	 * 		The dealer will hit if the hand score is below 16, or
+	 * 		is equal to 17 with 11 points coming from an ace. The
+	 * 		dealer also does not need to hit if the player has busted.
+	 *************************/
+	public boolean checkHit() {
 		boolean check = false;
-		int score = handToCheck.getScore();
+		int score = currentHand.getScore();
 		
 		if (Game.human.getBestHandState() != Hand.HandState.busted) {
 			if (score <= 16 || (
-				score == 17 && handToCheck.aceWorth11)) {
+				score == 17 && currentHand.getAceWorth11())) {
 			check = true;
 			}
 		}
@@ -56,10 +62,10 @@ public class DealerPlayer extends Player {
 			ConsoleIO.outputln(this.getHand(true));
 		}
 		
-		while(checkHit(currentHand)) {
+		while(checkHit()) {
 			ConsoleIO.outputln("The dealer hits", extraHandString, ": ", currentHand.hit(deck).toString());
 			
-			if (!checkHit(currentHand)) {
+			if (!checkHit()) {
 				if (currentHand.getState() == Hand.HandState.busted) {
 					ConsoleIO.outputln("The dealer busts", extraHandString, "!");
 				}

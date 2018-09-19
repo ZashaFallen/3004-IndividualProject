@@ -46,31 +46,37 @@ public class Game {
 					}
 				}
 
-				
-				if (!ConsoleIO.inputError) {
-					displayBothHands();
-					if (getWinner()) {
-						if (checkInitialBlackjack()) {
-							ConsoleIO.output("You got an initial blackjack, and the dealer didn't!");
-						}
-						ConsoleIO.output("You won!");
-					}
-					else {
-						if (checkInitialBlackjack()) {
-							ConsoleIO.output("The dealer got an initial blackjack! ");
-						}
-						ConsoleIO.output("You lost!");
-					}
-				}
-			}
-			
-			if (ConsoleIO.inputError) {
-				ConsoleIO.output("There was an issue with the input file. Please verify that there are no duplicate cards, and the player commands are sufficient.");
+				showWinner();
 			}
 			
 		}
+		if (ConsoleIO.inputError) {
+			ConsoleIO.output("There was an issue with the input file. Please verify that there are no duplicate cards, and the player commands are sufficient.");
+		}
 		
 		ConsoleIO.close();
+	}
+
+
+	private static void showWinner() {
+		
+		if (!ConsoleIO.inputError) {
+			displayBothHands();
+			
+			if (getWinner()) {
+				if (checkInitialBlackjack()) {
+					ConsoleIO.output("You got an initial blackjack, and the dealer didn't!");
+				}
+				ConsoleIO.output("You won!");
+			}
+			else {
+				if (checkInitialBlackjack()) {
+					ConsoleIO.output("The dealer got an initial blackjack! ");
+				}
+				ConsoleIO.output("You lost!");
+			}
+		}
+		
 	}
 
 
