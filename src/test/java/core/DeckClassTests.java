@@ -36,33 +36,25 @@ public class DeckClassTests extends TestCase{
 		deck.cards.add(new Card("H", "A", 0));
 		deck.cards.add(new Card("S", "K", 10));
 		deck.cards.add(new Card("C", "A", 0));
-		assertTrue(deck.checkDuplicates());
+		assertFalse(deck.checkDuplicates());
 		
 		deck.cards = new ArrayList<Card>();
 		deck.cards.add(new Card("S", "K", 10));
 		deck.cards.add(new Card("H", "A", 0));
 		deck.cards.add(new Card("D", "K", 10));
 		deck.cards.add(new Card("C", "A", 0));
-		assertFalse(deck.checkDuplicates());
+		assertTrue(deck.checkDuplicates());
 	}
 	
 	
 	/**************
 	 * Purpose:  Check for duplicate cards in a deck after being 
-	 * 	  	created. duplicateSet.Add() returns false if the item 
- *   *    	already exists in the set.
+	 * 	  	created.
 	 **************/
 	@Test
 	public void testForDuplicatesInNewDeck() {
 		Deck deck = new Deck();
-		boolean check = true;
 		
-		Set<Card> duplicateSet = new HashSet<Card>();
-		
-		for (Card c : deck.cards) {
-			check = duplicateSet.add(c);
-		}
-		
-		assertTrue(check);
+		assertTrue(deck.checkDuplicates());
 	}
 }
