@@ -6,6 +6,12 @@ public class DealerPlayer extends Player {
 		super(deck);
 	}
 	
+	/*************************
+	 * Purpose: Returns the dealer's hand in string form.
+	 * 		If the showHidden is true, all of the dealer's
+	 * 		cards are visible. If the dealer split, return
+	 * 		the dealer's second hand as well.
+	 *************************/
 	public String getHand(boolean showHidden) {
 		String dealerHand = "Dealer's Hand: ";
 		
@@ -48,6 +54,14 @@ public class DealerPlayer extends Player {
 		return check;
 	}
 	
+	/*************************
+	 * Purpose: Take the dealer's turn. If the dealer's initial two
+	 * 		cards are identical in rank, and they total to 17 or less,
+	 * 		the dealer splits with split(). The dealer uses checkHit()
+	 * 		to decide if they should hit on each of their hand(s), until
+	 * 		they've busted or stayed on them. Finally, print the dealer's
+	 * 		full hand(s). 
+	 *************************/
 	@Override
 	public void takeTurn(Deck deck) {
 		String extraHandString = "";

@@ -18,6 +18,10 @@ public class Player {
 		currentHand = hand;
 	}
 	
+	/*************************
+	 * Purpose: Compares the scores of the player's hands, and 
+	 * 		returns the best hand score.
+	 *************************/
 	public int getBestHandScore() {
 		int bestScore = 0;
 		
@@ -35,11 +39,16 @@ public class Player {
 		return bestScore;
 	}
 	
+	
 	public String getHand() {
 		// implemented in 'HumanPlayer' and 'DealerPlayer'
 		return null;
 	}
 	
+	/*************************
+	 * Purpose: Compares the states of the player's hands, and 
+	 * 		returns the best hand state.
+	 *************************/
 	public Hand.HandState getBestHandState() {		
 		Hand.HandState bestState = Hand.HandState.invalid;
 		
@@ -61,10 +70,16 @@ public class Player {
 		return bestState;
 	}
 	
+	
 	public void takeTurn(Deck deck) {
 		// implemented in 'HumanPlayer' and 'DealerPlayer'
 	}
 	
+	/*************************
+	 * Purpose: Splits the player's hands into two hands. The second
+	 * 		card of the first hand is moved into the second hand, and
+	 * 		both hands hit with the deck.
+	 *************************/
 	protected void split(Deck deck) {
 		split = true;
 		

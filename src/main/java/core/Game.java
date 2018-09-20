@@ -15,6 +15,7 @@ public class Game {
 	protected static HumanPlayer human;
 	protected static DealerPlayer dealer;
 	protected static Deck deck;	
+	private final static String INPUT_FILE = "src/main/resources/input files/file7.txt";
 	
 	public static void main(String[] args) {
 		ConsoleIO.init();
@@ -26,58 +27,49 @@ public class Game {
 		if (gameState != GameState.quit) {
 			
 			setUp();
+			takePlayerTurns();
 			
 			if (!ConsoleIO.inputError) {
-				
-				if (!checkInitialBlackjack()) {
-					human.takeTurn(deck);
-					if (human.getBestHandState() != Hand.HandState.busted && !ConsoleIO.inputError) {
-						dealer.takeTurn(deck);
-					}
-				}
-
 				showWinner();
 			}
-			
-		}
-		if (ConsoleIO.inputError) {
-			ConsoleIO.output("There was an issue with the input file. Please verify that there are no duplicate cards, and the player commands are sufficient.");
+			else {
+				ConsoleIO.output("There was an issue with the input file. Please verify that there are no duplicate cards, and the player commands are sufficient.");
+			}
 		}
 		
 		ConsoleIO.close();
 	}
 
-
-	private static void showWinner() {
-		
+	
+	/**************
+	 * Purpose: Checks that there was no initial blackjack, and then 
+	 * 		takes the players' turns. If the human busted, the dealer
+	 * 		doesn't take their turn.
+	 **************/
+	protected static void takePlayerTurns() {
 		if (!ConsoleIO.inputError) {
-			displayBothHands();
-			
-			if (getWinner()) {
-				if (checkInitialBlackjack()) {
-					ConsoleIO.output("You got an initial blackjack, and the dealer didn't!");
+			if (!checkInitialBlackjack()) {
+				human.takeTurn(deck);
+				if (human.getBestHandState() != Hand.HandState.busted && !ConsoleIO.inputError) {
+					dealer.takeTurn(deck);
 				}
-				ConsoleIO.output("You won!");
-			}
-			else {
-				if (checkInitialBlackjack()) {
-					ConsoleIO.output("The dealer got an initial blackjack! ");
-				}
-				ConsoleIO.output("You lost!");
 			}
 		}
-		
 	}
 
-
+	/**************
+	 * Purpose: Set up the game. For console input, make a new deck
+	 * 		and shuffle it. For file input, read the file input using
+	 * 		ConsoleIO.readInputFile(). For both types of input, create
+	 * 		the players and print the hands.
+	 **************/
 	protected static void setUp() {
-		
 		if (gameState == GameState.console) {
 			deck = new Deck();
 			deck.shuffle();
 		}
 		else if (gameState == GameState.file) {
-			ConsoleIO.readInputFile("src/main/resources/input files/file7.txt");
+			ConsoleIO.readInputFile(INPUT_FILE);
 		}
 
 		if (!ConsoleIO.inputError) {
@@ -88,7 +80,6 @@ public class Game {
 			ConsoleIO.outputln(human.getHand());
 			ConsoleIO.output(System.lineSeparator());
 		}
-		
 	}
 	
 	
@@ -127,6 +118,10 @@ public class Game {
 	}
 	
 	
+	/**************
+	 * Purpose: Check if either of the players have an initial
+	 * 		blackjack.
+	 **************/
 	protected static boolean checkInitialBlackjack() {
 		boolean check = false;
 		
@@ -143,6 +138,9 @@ public class Game {
 	}
 	
 	
+	/**************
+	 * Purpose: Print the full hands and final scores of both players.
+	 **************/
 	protected static void displayBothHands() {
 		ConsoleIO.output(System.lineSeparator());
 		ConsoleIO.output(dealer.getHand(true) + " Final Score: " + dealer.getBestHandScore() + System.lineSeparator());
@@ -150,6 +148,10 @@ public class Game {
 	}
 	
 	
+	/**************
+	 * Purpose: Checks if the human won. True if they did, false if
+	 * 		the dealer won.
+	 **************/
 	protected static boolean getWinner() {
 		boolean humanWon = false;
 		
@@ -168,5 +170,30 @@ public class Game {
 		}
 	
 		return humanWon;
+	}
+	
+	
+	/**************
+	 * Purpose: Print whether the human won or lost, and if someone
+	 * 		got an initial blackjack.
+	 **************/
+	private static void showWinner() {
+		if (!ConsoleIO.inputError) {
+			displayBothHands();
+			
+			if (getWinner()) {
+				if (checkInitialBlackjack()) {
+					ConsoleIO.output("You got an initial blackjack, and the dealer didn't!");
+				}
+				ConsoleIO.output("You won!");
+			}
+			else {
+				if (checkInitialBlackjack()) {
+					ConsoleIO.output("The dealer got an initial blackjack! ");
+				}
+				ConsoleIO.output("You lost!");
+			}
+		}
+		
 	}
 }

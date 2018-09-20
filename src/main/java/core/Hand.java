@@ -21,6 +21,10 @@ public class Hand {
 		cards.add(card);
 	}
 	
+	/*************************
+	 * Purpose: Return a string representation of the hand,
+	 * 		with the cards joined by ', '.
+	 *************************/
 	public String getCards() {
 		String playerHand = cards.stream().map(i -> i.toString()).collect(Collectors.joining(", "));
 		
@@ -31,10 +35,22 @@ public class Hand {
 		return playerHand;
 	}
 	
+	/*************************
+	 * Purpose: Return a string representation of the first card
+	 * 		in the hand.
+	 *************************/
 	public String getFirstCard() {
 		return cards.get(0).toString();
 	}
 	
+	
+	/*************************
+	 * Purpose: Calculates a hand's score. The values are added up,
+	 * 		with the aces initially counting as 11. Then, for each
+	 * 		aces in the hand and as long as the score is above 21,
+	 * 		subtract 10. If there is still an ace worth 11, aceWorth11
+	 * 		will be set to true.
+	 *************************/
 	public int getScore() {
 		int score = 0;
 		int acesCount = 0;
@@ -60,24 +76,37 @@ public class Hand {
 		return score;
 	}
 	
+	/*************************
+	 * Purpose: Returns the sate of the hand. 
+	 * If the score is greater than 21, the hand is busted.
+	 * If the score is equal to 21, there is an ace worth 11,
+	 * 		and the player has not hit on the hand, the hand
+	 * 		is a blackjack.
+	 * If the score is less than or equal to 21, the hand is
+	 * 		safe.
+	 *************************/
 	public HandState getState() {
 		HandState state = HandState.invalid;
 		int score = this.getScore();
 		
-		if (score == 21 && cards.size() == 2 && !alreadyHit) {
+		if (score > 21) {
+			state = HandState.busted;
+		}
+		else if (score == 21 && aceWorth11 && !alreadyHit) {
 			state = HandState.blackjack;
 		}
-		else if (score <= 21) {
+		else {
 			state = HandState.safe;
-		}
-		else if (score > 21) {
-			state = HandState.busted;
 		}
 		
 		return state;
 	}
 
-	
+	/*************************
+	 * Purpose: Remove the first card from the deck and add
+	 * 		it to the hand. Returns the card pulled from the
+	 * 		deck.
+	 *************************/
 	public Card hit(Deck deck) {
 		alreadyHit = true;
 		
@@ -87,17 +116,18 @@ public class Hand {
 		return newCard;
 	}
 	
+	/*************************
+	 * Purpose: Checks if the hand is able to be split. The hand
+	 * 		must not have already hit, have two cards, and both
+	 * 		cards must be identical in rank.
+	 *************************/
 	public boolean canSplit() {
-		boolean check;
-		
-		if (alreadyHit) {
-			check = false;
-		}
-		else if (cards.size() == 2 && cards.get(0).getRank().equals(cards.get(1).getRank())) {
+		boolean check = false;
+
+		if (!alreadyHit && 
+			cards.size() == 2 && 
+			cards.get(0).getRank().equals(cards.get(1).getRank())) {
 			check = true;
-		}
-		else {
-			check = false;
 		}
 		
 		return check;
