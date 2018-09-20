@@ -169,32 +169,27 @@ public class GameClassTests extends TestCase {
 	 * 		initializes the player objects, depending on the game state.
 	 ***********************/
 	@Test
-	public void testSetUp() {
+	public void testSetUp() {	
+		Game.gameState = Game.GameState.file;
+		Game.setUp();
+		assertFalse(ConsoleIO.inputError);
+		List<String> expectedPlayerCommands = new ArrayList<String>();
+		List<Card> expectedCardList = new ArrayList<Card>();
+		expectedCardList.add(new Card("S", "K", 10));
+		expectedCardList.add(new Card("H", "A", 0));
+		expectedCardList.add(new Card("H", "Q", 10));
+		expectedCardList.add(new Card("C", "A", 0));
+		
+		assertEquals(expectedPlayerCommands, ConsoleIO.fileCommands);
+		for (int i = 0; i < Game.deck.cards.size(); i++) {
+			assertEquals(expectedCardList.get(i).toString(), Game.deck.cards.get(i).toString());
+		}
+		
 		Game.gameState = Game.GameState.console;
 		Game.setUp();
 		assertNotNull(Game.deck);
 		assertNotNull(Game.human);
 		assertNotNull(Game.dealer);
-		
-		Game.gameState = Game.GameState.file;
-		Game.setUp();
-
-		List<String> expectedPlayerCommands = new ArrayList<String>();
-		List<Card> expectedPlayerCardList = new ArrayList<Card>();
-		expectedPlayerCardList.add(new Card("S", "K", 10));
-		expectedPlayerCardList.add(new Card("H", "A", 0));
-		List<Card> expectedDealerCardList = new ArrayList<Card>();
-		expectedDealerCardList.add(new Card("H", "Q", 10));
-		expectedDealerCardList.add(new Card("C", "A", 0));
-		
-		assertFalse(ConsoleIO.inputError);
-		assertEquals(expectedPlayerCommands, ConsoleIO.fileCommands);
-		for (int i = 0; i < Game.human.hand.cards.size(); i++) {
-			assertEquals(expectedPlayerCardList.get(i).toString(), Game.human.hand.cards.get(i).toString());
-		}
-		for (int i = 0; i < Game.dealer.hand.cards.size(); i++) {
-			assertEquals(expectedDealerCardList.get(i).toString(), Game.dealer.hand.cards.get(i).toString());
-		}
 	}
 	
 	/***********************

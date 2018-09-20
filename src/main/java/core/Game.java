@@ -15,7 +15,7 @@ public class Game {
 	protected static HumanPlayer human;
 	protected static DealerPlayer dealer;
 	protected static Deck deck;	
-	private final static String INPUT_FILE = "src/main/resources/input files/file7.txt";
+	private final static String INPUT_FILE = "src/main/resources/input files/file1.txt";
 	
 	public static void main(String[] args) {
 		ConsoleIO.init();
