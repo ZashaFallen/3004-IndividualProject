@@ -54,6 +54,7 @@ public class ConsoleIO {
 	 * Purpose:  Print a message containing any number of strings
 	 **************/
 	public static void output(String... message) {
+		
 		for (String m : message) {
 			System.out.print(m);
 		}
@@ -99,12 +100,12 @@ public class ConsoleIO {
 	 * 		by the user that describes a game.
 	 **************/
 	public static void readInputFile(String filePath) {
-		List<String> fileContents;
 		File file = new File(filePath);
 		
 		if (file.exists()) {
 			try(BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 				String fileText = "";
+				List<String> fileContents;
 			    StringBuilder sb = new StringBuilder();
 			    String line = br.readLine();
 			    
@@ -140,11 +141,7 @@ public class ConsoleIO {
 			    if (!Game.deck.checkDuplicates()) {
 			    	inputError = true;
 			    }
-			    
-			    if (!inputError) {
-			    	Game.human = new HumanPlayer(Game.deck);
-					Game.dealer = new DealerPlayer(Game.deck); 
-			    }
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

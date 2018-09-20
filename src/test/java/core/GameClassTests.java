@@ -2,9 +2,11 @@ package core;
 
 import org.junit.Test;
 
-import core.Game.GameState;
-
 import org.junit.Before;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.is;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -162,10 +164,10 @@ public class GameClassTests extends TestCase {
 	}
 	
 	
-	/*
+	/***********************
 	 * Purpose: test Game.setUp(), which either reads the input file or
 	 * 		initializes the player objects, depending on the game state.
-	 */
+	 ***********************/
 	@Test
 	public void testSetUp() {
 		Game.gameState = Game.GameState.console;
@@ -192,6 +194,26 @@ public class GameClassTests extends TestCase {
 		}
 		for (int i = 0; i < Game.dealer.hand.cards.size(); i++) {
 			assertEquals(expectedDealerCardList.get(i).toString(), Game.dealer.hand.cards.get(i).toString());
+		}
+	}
+	
+	/***********************
+	 * Purpose: test the function that runs Game.takePlayerTurns().
+	 ***********************/
+	@Test
+	public void testTakePlayerTurns() {
+		Deck deck = new Deck();
+		Game.human = new HumanPlayer(deck);
+		Game.dealer = new DealerPlayer(deck);
+		
+		Game.takePlayerTurns();
+		
+		assertFalse(ConsoleIO.inputError);
+		if (Game.human.getBestHandState() == Hand.HandState.busted) {
+			assertNotSame(Hand.HandState.busted, Game.dealer.getBestHandState());
+		}
+		else {
+			assertThat(Game.human.getBestHandState(), anyOf(is(Hand.HandState.blackjack), is(Hand.HandState.safe)));
 		}
 	}
 }

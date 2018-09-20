@@ -6,8 +6,7 @@ public class Game {
 		console,
 		file,
 		quit,
-		invalid,
-		winner
+		invalid
 	}
 	
 	public static GameState gameState = GameState.invalid;
@@ -26,18 +25,9 @@ public class Game {
 		
 		if (gameState != GameState.quit) {
 			
-			if (gameState == GameState.console) {
-				setUpGame();
-			}
-			else if (gameState == GameState.file) {
-				ConsoleIO.readInputFile("src/main/resources/input files/file8.txt");
-			}
+			setUp();
 			
 			if (!ConsoleIO.inputError) {
-				ConsoleIO.outputln(System.lineSeparator());
-				ConsoleIO.outputln(dealer.getHand(false));
-				ConsoleIO.outputln(human.getHand());
-				ConsoleIO.output(System.lineSeparator());
 				
 				if (!checkInitialBlackjack()) {
 					human.takeTurn(deck);
@@ -80,11 +70,25 @@ public class Game {
 	}
 
 
-	private static void setUpGame() {
-		deck = new Deck();
-		deck.shuffle();
-		human = new HumanPlayer(deck);
-		dealer = new DealerPlayer(deck);
+	protected static void setUp() {
+		
+		if (gameState == GameState.console) {
+			deck = new Deck();
+			deck.shuffle();
+		}
+		else if (gameState == GameState.file) {
+			ConsoleIO.readInputFile("src/main/resources/input files/file7.txt");
+		}
+
+		if (!ConsoleIO.inputError) {
+			human = new HumanPlayer(deck);
+			dealer = new DealerPlayer(deck);
+			ConsoleIO.outputln(System.lineSeparator());
+			ConsoleIO.outputln(dealer.getHand(false));
+			ConsoleIO.outputln(human.getHand());
+			ConsoleIO.output(System.lineSeparator());
+		}
+		
 	}
 	
 	
